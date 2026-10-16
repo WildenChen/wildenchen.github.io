@@ -1,18 +1,23 @@
-# Wilden Chen — Personal Website
+# 計畫之外 / Unplanned Notes
 
-Public website for software development work, Swift technical books, and open-source projects.
+Public reading site for Swift technical books, UX research notes, and selected open-source software.
 
 - Website: https://apps-dev.tech/
-- GitHub Pages: https://wildenchen.github.io/
-- Source: https://github.com/WildenChen/wildenchen.github.io
+- Repository: https://github.com/WildenChen/wildenchen.github.io
+- GitHub Pages: `main / (root)` with HTTPS and `CNAME`.
 
-## Structure
-- `index.html`: homepage
-- `styles.css`: responsive layout and book-cover graphics
+## Content
+- `index.html`: homepage centered on writing and projects
+- `about/index.html`: author introduction, separate from homepage
+- `research/index.html`: 2020 EMBA research reflections
+- `styles.css`, `research.css`: baseline and research styles
+- `site-shell.css`: shared branding and navigation
+- `portal.css`: homepage design
+- `about.css`: author page
 - `favicon.svg`: site icon
-- `CNAME`: GitHub Pages custom domain
 
-This site contains only intentionally public information. Personal infrastructure, service URLs, internal documentation, and private project data do not belong in this repository.
+## Privacy
+Only purposefully public content belongs in the repository. Local research originals are kept under `.private/`, which is ignored by Git. Never add private PDFs, DOCX files, interview transcripts, internal systems, access credentials, or other sensitive material.
 
-## Publishing
-GitHub Pages publishes from `main` / `(root)`. Every push to `main` updates the website.
+## Editorial principle
+The homepage should invite readers to discover books, research, and software, rather than serve as a personal résumé. Details about the writer belong on the About page. Keep jokes in the story without explaining them.

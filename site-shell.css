@@ -1,0 +1,34 @@
+/* Shared masthead and imprint for 計畫之外. */
+.site-header{height:86px;background:#f9f4ea;border-bottom:1px solid #d7cdbc;position:relative;z-index:10}
+.site-header::before{content:"";height:4px;display:block;background:linear-gradient(90deg,#1d4141 0 40%,#c4a067 40% 74%,#c77854 74% 100%)}
+.site-header .header-inner{height:82px}
+.site-header .brand{gap:14px}
+.site-header .brand-symbol{width:49px;height:49px;background:#1a373a;color:#fff8e5;border-radius:4px;transform:rotate(-5deg);display:grid;place-items:center;box-shadow:3px 3px 0 #d3b988;padding:0;font-family:"Noto Serif TC","Songti TC",Georgia,serif;font-weight:800;font-size:29px;letter-spacing:0}
+.site-header .brand-symbol span{font-size:23px;color:#e8ac7c;margin-left:-5px}
+.site-header .brand-name{font-size:18px;letter-spacing:2px;font-weight:850;color:#253d3d}
+.site-header .brand-name small{font-size:9px;letter-spacing:1.9px;margin-top:6px;color:#8c897f}
+.site-header .site-nav{gap:30px}
+.site-header .site-nav a{position:relative;color:#415854;font-size:12px;white-space:nowrap;font-weight:750}
+.site-header .site-nav a::after{content:"";position:absolute;left:0;bottom:-8px;width:0;height:2px;background:#b87151;transition:width .2s}
+.site-header .site-nav a:hover::after,
+.site-header .site-nav a[aria-current]::after{width:100%}
+.site-header .site-nav a:hover{color:#9a6449}
+.footer{background:#192d32;color:#fffaf1;border-top:4px solid #cba774}
+.footer strong{font-size:21px;letter-spacing:1px}
+.footer p{color:#b5bdb6}
+.footer-right{gap:23px;flex-wrap:wrap}
+.footer-right a{white-space:nowrap;color:#f0dbc0}
+.footer-right a:hover{color:#fff}
+@media(max-width:760px){
+  .site-header{height:auto}
+  .site-header .header-inner{height:auto;gap:14px;padding-block:16px 11px}
+  .site-header .site-nav{width:100%;display:flex;justify-content:flex-start;gap:27px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:8px}
+  .site-header .site-nav::-webkit-scrollbar{display:none}
+  .site-header .site-nav a{font-size:12px}
+}
+@media(max-width:470px){
+  .site-header .site-nav{gap:17px}
+  .site-header .brand-symbol{width:44px;height:44px;font-size:26px}
+  .site-header .brand-name{font-size:16px}
+  .footer-right{gap:15px}
+}

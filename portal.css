@@ -1,0 +1,113 @@
+/* Magazine-like homepage: stories first, author elsewhere. */
+body.portal-page{background:#f4efe5;color:#233b3d}
+.portal-page .portal-hero{position:relative;isolation:isolate;overflow:hidden;color:#f9f0de;background:radial-gradient(ellipse at 82% 12%,#31524c 0%,transparent 42%),linear-gradient(116deg,#15292f,#213d3e 69%,#162d34)}
+.portal-orbit{position:absolute;z-index:-1;right:-10%;top:-22%;width:min(75vw,1100px);aspect-ratio:1;border:1px solid #eee7c61b;border-radius:50%;box-shadow:0 0 0 90px #eeeecc08,0 0 0 190px #eeeedd05}
+.portal-hero::after{content:"";position:absolute;z-index:-1;inset:0;opacity:.25;background-image:linear-gradient(#e0efda18 1px,transparent 1px),linear-gradient(90deg,#e0efda18 1px,transparent 1px);background-size:82px 82px;mask-image:linear-gradient(90deg,transparent 12%,#000 100%)}
+.portal-hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:6%;align-items:center;min-height:610px;padding-block:74px 66px}
+.portal-headline{max-width:660px}
+.portal-overline{display:flex;align-items:center;gap:12px;color:#e8cb99;font-size:11px;font-weight:850;letter-spacing:2px}
+.signal-light{display:inline-block;width:8px;height:8px;border-radius:100%;background:#d9af78;box-shadow:0 0 0 5px #cda26c25}
+.portal-headline h1{font-size:clamp(38px,4.55vw,68px);line-height:1.34;letter-spacing:-2px;margin:27px 0 28px;font-weight:900}
+.portal-headline h1 em{font-style:normal;background:linear-gradient(92deg,#eed096,#e99c7b);color:transparent;background-clip:text;-webkit-background-clip:text}
+.portal-intro{color:#bbd1c8;font-size:15px;line-height:2.1;max-width:585px;margin:0 0 28px}
+.portal-page .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:33px 0 0}
+.portal-page .button{font-size:12px;font-weight:850;gap:18px}
+.portal-page .button-primary{background:#efc982;color:#233e3c}
+.portal-page .button-primary:hover{background:#ffe3aa}
+.portal-page .button-outline{color:#d3e3dc;border-color:#829e92;background:transparent}
+.portal-page .button-outline:hover{background:#ffffff14}
+.portal-poster{position:relative;isolation:isolate;transform:rotate(2deg);padding:31px 34px 28px;max-width:450px;width:100%;background:#f5eeda;color:#203f40;border:1px solid #efe7d1;box-shadow:0 13px 0 -4px #beab87,0 22px 0 -8px #1b3638,0 37px 55px #09181a80}
+.portal-poster::before{content:"";inset:10px;position:absolute;border:1px solid #c2b9a4;pointer-events:none;z-index:-1}
+.poster-head,.poster-footer{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:9px;letter-spacing:1.1px;font-weight:800;color:#637c72}
+.poster-head{margin-bottom:57px}
+.poster-head span:last-child{border:1px solid #7b9386;padding:4px 7px;font-size:8px}
+.poster-label{font-size:11px;letter-spacing:2px;color:#7b887b;margin:0 0 12px;font-weight:800}
+.poster-title{font-size:clamp(37px,4vw,58px);line-height:1.2;font-weight:900;letter-spacing:-2px}
+.poster-title i{font-style:normal;color:#a85f45}
+.poster-stamp{position:absolute;z-index:2;right:27px;top:145px;color:#b85a44;border:3px solid #c0664f;font-size:17px;line-height:1.3;text-align:center;font-weight:900;transform:rotate(-15deg);padding:9px 11px;letter-spacing:2px}
+.poster-rule{margin:20px 0 10px;height:3px;background:#284b46}
+.poster-log{list-style:none;counter-reset:track;margin:0;padding:0}
+.poster-log li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:2px 10px;padding:12px 0;border-bottom:1px dashed #b9b3a3}
+.poster-log li span{grid-row:span 2;color:#9b604f;font-size:11px;font-weight:850;font-variant-numeric:tabular-nums;padding-top:2px}
+.poster-log li strong{font-size:13px;color:#304747;line-height:1.5}
+.poster-log li small{font-size:10px;color:#758279}
+.poster-ending{font-family:"Noto Serif TC","Songti TC",serif;color:#965c47;font-size:14px;font-weight:800;margin:21px 0 17px}
+.poster-footer{border-top:1px solid #aaa994;padding-top:11px;font-size:8px}
+.portal-hero-bottom{display:flex;justify-content:space-between;gap:16px;padding:17px 0 20px;border-top:1px solid #ffffff2b;color:#a6b8ad;font-size:10px;letter-spacing:1.5px;font-weight:800}
+.portal-hero-bottom>span:first-child{color:#d9c39b}
+.portal-index{background:#eee5d5;border-bottom:1px solid #d7c9b6}
+.portal-index-inner{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.portal-index a{display:flex;gap:18px;align-items:center;border-right:1px solid #d5c6b2;padding:28px 25px 28px 0;transition:background .2s}
+.portal-index a+a{padding-left:25px}
+.portal-index a:last-child{border-right:0}
+.portal-index a:hover{background:#ffffff42}
+.index-number{font-family:Georgia,serif;font-size:34px;font-style:italic;color:#b99b71}
+.index-copy{display:flex;flex-direction:column;flex:1;line-height:1.45}
+.index-copy strong{font-size:16px;color:#314741}
+.index-copy small{margin-top:4px;font-size:10px;letter-spacing:.55px;color:#839087}
+.index-arrow{font-size:18px;color:#a66c55}
+.portal-page .section{padding-block:91px 100px}
+.portal-page .section-kicker{font-size:10px;letter-spacing:2.5px;color:#aa7351}
+.portal-page .section-heading h2{font-size:clamp(33px,3.8vw,49px);font-weight:880;letter-spacing:-1.3px}
+.portal-page .section-description{font-size:14px;color:#697870;max-width:435px}
+.portal-page .books-section{background:#f4efe5}
+.portal-page .book-card{background:#fffcf5;border-color:#d6c9b6;box-shadow:5px 6px 0 #ddd3c4}
+.portal-page .book-card:hover{box-shadow:9px 12px 0 #ddd3c4;border-color:#b79d7c}
+.portal-page .cover-swift{background:linear-gradient(145deg,#21464a,#173037)}
+.portal-page .book-category{color:#936345}
+.portal-page .text-link{color:#9e644b;border-color:#b98e70}
+.portal-page .text-link:hover{color:#73422f}
+.portal-page .book-note{color:#77796f}
+.portal-page .research-section{background:#19353a;color:#f7efe3;border-top:5px solid #bd9b71}
+.portal-page .research-section .section-kicker{color:#dab78a}
+.portal-page .research-section .section-heading h2{color:#f7efe3}
+.portal-page .research-section .section-description{color:#b8c9c1}
+.portal-page .research-feature{background:#fcf3e3;border-color:#e0d3bb;box-shadow:10px 10px 0 #082226}
+.portal-page .research-feature-art{background:radial-gradient(circle at 72% 26%,#956b53 0%,transparent 52%),linear-gradient(130deg,#624035,#254441)}
+.portal-page .research-feature-tag{color:#a46c51}
+.portal-page .research-feature h3{color:#243d3e}
+.portal-page .research-feature-body p{color:#596d68}
+.portal-page .research-feature-footnote{color:#b3c1b5}
+.portal-page .projects-section{background:#f0e9dc;background-image:radial-gradient(#253b3a0e 1px,transparent 1px);background-size:22px 22px}
+.portal-page .project-card{border:1px solid #c9ccbf;border-top:6px solid #416b60;background:#fffcf4;box-shadow:5px 5px 0 #d9d1c1}
+.portal-page .project-card:nth-child(2){border-top-color:#bc925a}
+.portal-page .project-card:nth-child(3){border-top-color:#b57255}
+.portal-page .project-card:hover{box-shadow:9px 11px 0 #d9d1c1}
+.portal-page .project-tag{color:#567d6e;border-color:#cfdbd0}
+.portal-page .project-link{color:#477c66}
+.portal-page .button-dark{background:#234447}
+@media(max-width:1080px){
+ .portal-hero-grid{gap:4%;grid-template-columns:1fr .85fr}
+ .portal-headline h1{font-size:clamp(37px,4.3vw,53px)}
+ .portal-poster{padding:25px 27px}
+ .poster-title{font-size:clamp(34px,3.8vw,49px)}
+ .poster-stamp{top:133px;right:23px;font-size:14px}
+ .portal-index a{gap:10px;padding-right:12px}
+ .portal-index a+a{padding-left:12px}
+}
+@media(max-width:830px){
+ .portal-hero-grid{grid-template-columns:1fr;padding-block:67px;gap:55px}
+ .portal-headline h1{font-size:clamp(42px,7vw,63px)}
+ .portal-poster{max-width:450px;justify-self:center;transform:rotate(1deg)}
+ .portal-index-inner{grid-template-columns:1fr}
+ .portal-index a,.portal-index a+a{padding:17px 4px;border-right:0;border-bottom:1px solid #d5c6b2}
+ .portal-index a:last-child{border-bottom:0}
+ .index-number{font-size:28px;width:34px}
+ .portal-page .section{padding-block:72px 82px}
+}
+@media(max-width:470px){
+ .portal-hero-grid{padding-block:52px 58px;gap:42px}
+ .portal-headline h1{font-size:clamp(35px,9vw,45px);line-height:1.32;letter-spacing:-1.5px}
+ .portal-overline{font-size:9px}
+ .portal-intro{font-size:14px}
+ .portal-page .hero-actions{display:flex;flex-direction:column}
+ .portal-hero-bottom{font-size:9px;letter-spacing:.7px}
+ .portal-hero-bottom span:last-child{text-align:right}
+ .portal-poster{max-width:390px;padding:22px 24px}
+ .poster-head{margin-bottom:48px}
+ .poster-title{font-size:44px}
+ .poster-stamp{top:133px;right:19px;font-size:13px}
+ .portal-index a{gap:13px}
+ .portal-page .section-heading h2{font-size:35px}
+}
+@media(prefers-reduced-motion:reduce){.portal-page *{scroll-behavior:auto!important;transition:none!important}}
