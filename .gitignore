@@ -1,0 +1,5 @@
+# Local-only material; never publish to GitHub Pages.
+.private/
+
+# Local editor / macOS files
+.DS_Store

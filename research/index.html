@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#15262f">
+  <meta name="description" content="從 2020 年 EMBA 論文回顧使用者經驗、行動功能分析、服務設計與軟體架構的關係。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="從使用者經驗到軟體架構｜Wilden Chen">
+  <meta property="og:description" content="2020 年 EMBA 研究回顧：行動應用不只是畫面，更是一套完整的服務與使用體驗。">
+  <meta property="og:url" content="https://apps-dev.tech/research/">
+  <link rel="canonical" href="https://apps-dev.tech/research/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/research.css">
+  <title>從使用者經驗到軟體架構｜研究與思考｜Wilden Chen</title>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要內容</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Wilden Chen 首頁">
+        <span class="brand-symbol">W<span>.</span></span>
+        <span class="brand-name">Wilden Chen<small>SOFTWARE DEVELOPER</small></span>
+      </a>
+      <nav class="site-nav" aria-label="主要導覽">
+        <a href="/#about">關於</a>
+        <a href="/#books">技術著作</a>
+        <a href="/#research" aria-current="page">研究與思考</a>
+        <a href="/#projects">開源作品</a>
+        <a href="https://github.com/WildenChen" target="_blank" rel="noopener noreferrer" class="nav-github">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="research-hero">
+      <div class="container">
+        <a class="research-back" href="/#research">← 返回研究與思考</a>
+        <p class="section-kicker">RESEARCH &amp; INSIGHTS / 2020</p>
+        <h1>從使用者經驗<br>到<span>軟體架構</span></h1>
+        <p class="research-lead">當我開始從「如何完成一個 App」轉而思考「使用者真正需要什麼服務」，設計與工程之間，就有了另一種連結方式。</p>
+        <div class="research-meta"><span>研究回顧與心得</span><span>國立臺北教育大學 EMBA</span><span>研究完成於 2020 年</span></div>
+      </div>
+    </section>
+
+    <div class="container research-layout">
+      <article class="research-article">
+        <section id="why">
+          <p class="article-eyebrow">01 / WHY IT MATTERS</p>
+          <h2>開發一個 App，與設計一項服務</h2>
+          <p>多年的行動應用開發經驗讓我經常接觸到各式各樣的技術問題：要用什麼架構？如何整合第三方功能？怎樣安排畫面和操作流程？但在實際規劃產品時，比這些問題更前面的，應該是使用者究竟想完成什麼。</p>
+          <p>我在 2020 年完成的 EMBA 碩士論文《自助旅遊行動服務規劃－使用者經驗設計模式》，嘗試從旅遊產業、使用者經驗與行動應用服務三個方向，找到從需求到系統設計之間的連結。這篇文章不是論文全文，而是將當時的研究方法和我認為值得繼續思考的部分，重新整理成比較容易閱讀的內容。</p>
+          <blockquote class="research-quote">一個功能能被開發出來，不代表它就有存在的價值；真正重要的是，它是否在適當的時機，解決了使用者的問題。</blockquote>
+          <p class="article-note">上方為此篇回顧文章對研究核心的歸納，不是論文原文引述。</p>
+        </section>
+
+        <section id="method">
+          <p class="article-eyebrow">02 / METHODOLOGY</p>
+          <h2>研究不是從畫面開始</h2>
+          <p>這份研究採用以人為本的設計流程，先理解產業背景與既有產品，再從訪談探索真實旅程中的需求，最後將研究結果轉為服務概念、技術架構與可行性討論。</p>
+          <div class="research-steps">
+            <div class="research-step"><span>01</span><div><h3>理解情境與競品</h3><p>整理旅遊產業與行動服務文獻，並使用 UX 蜂窩模型、功能比較和行動功能分析方法檢視不同旅遊 App 的設計。</p></div></div>
+            <div class="research-step"><span>02</span><div><h3>聆聽使用者的旅程</h3><p>透過三位自助旅行者的半結構式訪談，整理人物誌（Persona）與顧客旅程地圖（Customer Journey Map），觀察旅程中的目標、行為與痛點。</p></div></div>
+            <div class="research-step"><span>03</span><div><h3>從需求規劃服務</h3><p>提出「旅遊助理」服務概念，進一步整理服務功能、服務流程、系統架構與商業模式，而非只製作一套 App 畫面。</p></div></div>
+            <div class="research-step"><span>04</span><div><h3>回到可行性</h3><p>邀請兩位旅遊產業相關專家進行深度訪談，檢視概念在技術、產業與商業上的可行性與限制。</p></div></div>
+          </div>
+        </section>
+
+        <section id="model">
+          <p class="article-eyebrow">03 / UX × ENGINEERING</p>
+          <h2>行動功能分析模型：把看不到的互動納入設計</h2>
+          <p>我在研究中嘗試提出「行動功能分析模型」，思考傳統系統架構圖比較不容易表現的那一部分：使用者、裝置、App、雲端與其他服務之間的行為與資訊傳遞。</p>
+          <p>行動體驗不只發生在使用者觸碰畫面的瞬間。例如定位、背景通知、系統語音助理或其他服務的整合，都可能在使用者沒有直接操作 App 畫面時，影響整體體驗。模型希望協助開發者在功能規劃階段，將這些關係一併納入思考。</p>
+          <div class="research-model" aria-label="行動服務互動範圍概念圖">
+            <div class="model-node"><small>PERSON</small><strong>使用者</strong><span>目的與情境</span></div>
+            <span class="model-arrow" aria-hidden="true">↔</span>
+            <div class="model-node"><small>DEVICE + APP</small><strong>裝置與應用</strong><span>操作與感測</span></div>
+            <span class="model-arrow" aria-hidden="true">↔</span>
+            <div class="model-node"><small>SERVICES</small><strong>雲端與外部服務</strong><span>資料與回應</span></div>
+          </div>
+          <p class="article-note">此圖是供閱讀理解的簡化示意，不是正式論文中「行動功能分析模型」的原始圖稿或完整定義。</p>
+          <p>這個嘗試也留下了一個值得持續追問的問題：軟體工程的功能規格，能不能更清楚描述使用者所感受到的服務，而不只是技術元件之間如何連線？</p>
+        </section>
+
+        <section id="finding">
+          <p class="article-eyebrow">04 / RESEARCH OUTCOME</p>
+          <h2>從旅遊商品，轉向旅途中真正需要的協助</h2>
+          <p>研究中的一個重要發現，是自助旅客已經有自己慣用的購票、訂房、導航等工具。因此，規劃新的旅遊 App 並不一定需要重新包辦所有商品，反而可以思考如何補足旅途中尚未獲得滿足的服務。</p>
+          <div class="research-highlight-list">
+            <div><strong>即時協助</strong><p>翻譯、所在位置資訊、目的地相關提醒與旅程中的必要通知。</p></div>
+            <div><strong>跨服務整合</strong><p>串接旅客原本慣用的第三方工具，而不是強迫使用者完全改變既有習慣。</p></div>
+            <div><strong>自然的互動</strong><p>探索語音助理、適時提示，以及 AI 與真人支援互補的可能性。</p></div>
+          </div>
+          <p>因此，論文提出「旅遊助理」的規劃概念，再由業界專家協助評估：服務整合可以分階段進行，但要打造具備主動判斷能力的智慧助理，仍會遇到資料累積、技術投入、合作模式及商業可行性的限制。</p>
+        </section>
+
+        <section id="limits">
+          <p class="article-eyebrow">05 / LOOKING BACK</p>
+          <h2>回頭看，研究留下了什麼？</h2>
+          <p>這份研究對我而言，最重要的不是證明某一款旅遊 App 一定能成功，而是一次從產業、使用者需求、介面互動到軟體架構的完整思考練習。</p>
+          <p>它讓我把過去從動畫、互動設計與行動程式開發累積的經驗，放在同一條設計流程裡討論。以工程師的角度來看，先理解人的行為，再推導服務流程與系統需求，是值得持續使用的方法。</p>
+          <p>同時也必須清楚說明研究的邊界：當年的旅遊助理是**概念與服務系統規劃**，不是已正式上線的產品；訪談樣本有限，行動功能分析模型也還需要更多情境的檢驗。因此，這裡呈現的是研究成果與設計觀點，而非市場成效或技術已完成的證明。</p>
+          <p>多年後再回頭閱讀，我仍然認為這個問題值得探討：我們設計的究竟是一個有很多功能的 App，還是一項真正能融入使用者生活的服務？</p>
+        </section>
+
+        <aside class="research-source" aria-label="研究來源">
+          <p class="article-eyebrow">ORIGINAL RESEARCH / 2020</p>
+          <h2>研究來源</h2>
+          <p><strong>《自助旅遊行動服務規劃－使用者經驗設計模式》</strong></p>
+          <p>國立臺北教育大學文化創意產業經營學系 EMBA 碩士論文，2020 年。本文為論文研究方法與成果的整理回顧，並非完整論文、正式摘要或原稿逐字轉載。</p>
+          <p class="article-note">完整論文包含學術附錄與訪談逐字稿，現階段不提供原稿公開下載。</p>
+        </aside>
+      </article>
+
+      <aside class="research-toc" aria-label="本文目錄">
+        <div class="toc-inner">
+          <span class="toc-title">ON THIS PAGE</span>
+          <a href="#why">01　研究的起點</a>
+          <a href="#method">02　研究流程</a>
+          <a href="#model">03　行動功能分析模型</a>
+          <a href="#finding">04　旅遊助理服務</a>
+          <a href="#limits">05　回顧與限制</a>
+          <a class="toc-home" href="/">返回首頁 ↗</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div><strong>Wilden Chen<span class="period">.</span></strong><p>Software Developer · iOS &amp; Android</p></div>
+      <div class="footer-right"><a href="https://github.com/WildenChen" target="_blank" rel="noopener noreferrer">GitHub ↗</a><span>© 2026 Wilden Chen</span></div>
+    </div>
+  </footer>
+</body>
+</html>
