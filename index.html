@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#15262f">
-  <meta name="description" content="計畫之外：關於 Swift、行動應用、使用者經驗設計與開源實驗。原本一切順利，直到有人說「順便改一下」。">
+  <meta name="description" content="計畫之外：技術實驗、設計與創作、使用者經驗研究、Swift 著作與開源作品。每個選擇背後，都有值得追問的理由。">
   <meta property="og:type" content="website">
   <meta property="og:title" content="計畫之外｜Unplanned Notes">
-  <meta property="og:description" content="原本一切順利，直到有人說：順便改一下。技術著作、研究與思考、開源實驗。">
+  <meta property="og:description" content="原本一切順利，直到有人說：順便改一下。技術研究、角色設計、使用者體驗與開源實驗。">
   <meta property="og:url" content="https://apps-dev.tech/">
   <link rel="canonical" href="https://apps-dev.tech/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -16,7 +16,8 @@
   <link rel="stylesheet" href="/research.css">
   <link rel="stylesheet" href="/site-shell.css">
   <link rel="stylesheet" href="/portal.css">
-  <title>計畫之外｜技術、研究與開源實驗</title>
+  <link rel="stylesheet" href="/editorial.css">
+  <title>計畫之外｜技術實驗、設計與創作</title>
 </head>
 <body class="portal-page">
   <a class="skip-link" href="#main">跳至主要內容</a>
@@ -27,9 +28,10 @@
         <span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span>
       </a>
       <nav class="site-nav" aria-label="主要導覽">
-        <a href="/#books">技術著作</a>
+        <a href="/#lab">技術實驗室</a>
+        <a href="/#design">設計與創作</a>
         <a href="/#research">研究與思考</a>
-        <a href="/#projects">開源實驗</a>
+        <a href="/#books">著作與開源</a>
         <a href="/about/">關於作者</a>
       </nav>
     </div>
@@ -41,10 +43,10 @@
         <div class="portal-headline">
           <p class="portal-overline"><span class="signal-light"></span> UNPLANNED NOTES / ISSUE 001</p>
           <h1>原本一切順利。<br>直到有人說：<br><em>「順便改一下。」</em></h1>
-          <p class="portal-intro">關於程式、設計、使用者經驗，以及計畫書永遠追不上現實這件事。這裡收錄技術著作、研究筆記和仍在持續進化的開源實驗。</p>
+          <p class="portal-intro">從 AI 代理、遠端控制到藝術、UX 與人物創作。能用只是起點，好不好用、值不值得維護，才是更大的難題。這裡收藏做過的研究與實驗，也收藏那些不再繼續的選擇。</p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#books">翻開技術秘笈 <span aria-hidden="true">↗</span></a>
-            <a class="button button-outline" href="#research">閱讀研究卷宗 <span aria-hidden="true">↓</span></a>
+            <a class="button button-primary" href="#lab">進入技術實驗室 <span aria-hidden="true">↗</span></a>
+            <a class="button button-outline" href="#design">看看設計與創作 <span aria-hidden="true">↓</span></a>
           </div>
         </div>
         <div class="portal-poster" aria-label="計畫書現場：需求迭代紀錄">
@@ -59,23 +61,101 @@
             <li><span>15:20</span><strong>重新討論原始需求。</strong><small>狀態：重新開始</small></li>
           </ol>
           <p class="poster-ending">本案已進入下一次會議議程。</p>
-          <div class="poster-footer"><span>DEPARTMENT OF UNEXPECTED OUTCOMES</span><span>01 / ∞</span></div>
+          <div class="poster-footer"><span>INSTITUTE OF UNEXPECTED OUTCOMES</span><span>01 / ∞</span></div>
         </div>
       </div>
       <div class="container portal-hero-bottom"><span>卷首 / THE PLAN IS UNDER REVISION</span><span>向下翻閱案卷 <span aria-hidden="true">↓</span></span></div>
     </section>
     <section class="portal-index" aria-label="本站內容索引">
       <div class="container portal-index-inner">
-        <a href="#books"><span class="index-number">01</span><span class="index-copy"><strong>技術秘笈</strong><small>Swift &amp; Design Patterns</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
-        <a href="#research"><span class="index-number">02</span><span class="index-copy"><strong>研究與思考</strong><small>UX &amp; Service Design</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
-        <a href="#projects"><span class="index-number">03</span><span class="index-copy"><strong>開源實驗</strong><small>Tools &amp; Frameworks</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
+        <a href="#lab"><span class="index-number">01</span><span class="index-copy"><strong>技術實驗室</strong><small>Experiments &amp; Decisions</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
+        <a href="#design"><span class="index-number">02</span><span class="index-copy"><strong>設計與創作</strong><small>Art · UX · Characters</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
+        <a href="#research"><span class="index-number">03</span><span class="index-copy"><strong>研究與思考</strong><small>Research &amp; Insights</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
+        <a href="#books"><span class="index-number">04</span><span class="index-copy"><strong>著作與開源</strong><small>Books &amp; Open Source</small></span><span class="index-arrow" aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="section lab-section" id="lab" aria-labelledby="lab-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="section-kicker">01 / ENGINEERING LAB</p><h2 id="lab-title">技術實驗室<span class="period">.</span></h2></div>
+          <p class="section-description">技術不是會裝就算會。從構思、驗證到捨棄，每個決定都得回答：為什麼這樣做，比原本更好？</p>
+        </div>
+        <div class="lab-grid">
+          <article class="lab-card feature">
+            <div class="lab-top"><span>CASE 001 / REMOTE CONTROL</span><span class="lab-tag">已轉向</span></div>
+            <div><h3>辛苦改好的遠端工具，<br>為什麼最後不要了？</h3><p>Antigravity、Porta 與官方方案的交替。能夠遠端操作只是起點；使用方便、穩定、維護划算，才值得留下。</p></div>
+            <a class="case-foot" href="/lab/#porta"><span>閱讀技術決策</span><span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="lab-card">
+            <div class="lab-top"><span>CASE 002 / AGENT MEMORY</span><span class="lab-tag">持續研究</span></div>
+            <div><h3>AI 有記憶，<br>怎麼還是會忘記？</h3><p>OpenClaw 的長期記憶、Dreaming、狀態與排程。當代理愈來愈複雜，記憶也不只是多存幾段文字。</p></div>
+            <a class="case-foot" href="/lab/#memory"><span>閱讀研究摘要</span><span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="lab-card">
+            <div class="lab-top"><span>CASE 003 / LOCAL INFERENCE</span><span class="lab-tag">實測演進</span></div>
+            <div><h3>16GB Mac mini，<br>能把 AI 推多遠？</h3><p>Qwen、MLX、記憶體限制與生成品質。理論上最好的方案，不一定適合手上的機器。</p></div>
+            <a class="case-foot" href="/lab/#qwen"><span>閱讀研究摘要</span><span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <div class="lab-more"><a href="/lab/">翻閱更多實驗卷宗 <span aria-hidden="true">↗</span></a></div>
+      </div>
+    </section>
+
+    <section class="section design-section" id="design" aria-labelledby="design-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="section-kicker">02 / ART × UX × CHARACTER DESIGN</p><h2 id="design-title">設計與創作<span class="period">.</span></h2></div>
+          <p class="section-description">從畫面和互動到角色、變數與故事。讓功能可以運作不難；要讓人真的想用、讓人物真正立得住，才開始有趣。</p>
+        </div>
+        <article class="design-band">
+          <div class="design-cover">
+            <span class="design-label">CREATIVE SYSTEMS / CHARACTER FILE</span>
+            <h3>人物<br>不只是<br><em>一張卡。</em></h3>
+            <span class="design-foot">SILLYTAVERN / MVU / INTERACTION</span>
+          </div>
+          <div class="design-content">
+            <span class="section-kicker">ROLE DESIGN / STORY SYSTEM</span>
+            <h3>寫角色，也設計她們所處的系統</h3>
+            <p>從 SillyTavern 人物卡、MVU 變數，到角色狀態與長期互動。這裡談人物如何被設計、世界如何維持一致，也收錄適合公開分享的創作成果。</p>
+            <div class="design-tags"><span>人物卡</span><span>MVU</span><span>互動敘事</span><span>使用者體驗</span></div>
+            <a class="text-link" href="/design/">走進設計與創作 <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <div class="perspective-teaser">
+          <div><strong>同一個決定，四種看法。</strong><p>語婕逐漸卸下秘書工作，從架構決策到角色心事，各有自己的說法。</p></div>
+          <a href="/notes/yujie/">試讀多重視角文章 ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section research-section" id="research" aria-labelledby="research-title">
+      <div class="container">
+        <div class="section-heading">
+          <div><p class="section-kicker">03 / RESEARCH &amp; INSIGHTS</p><h2 id="research-title">研究與思考<span class="period">.</span></h2></div>
+          <p class="section-description">技術研究得愈深，就愈難理解：為什麼人們總���不按我們畫好的流程操作？於是開始認真研究人類。</p>
+        </div>
+        <article class="research-feature">
+          <div class="research-feature-art" aria-hidden="true">
+            <span class="research-feature-mark">R / 01</span>
+            <span class="research-feature-type">UX <i>×</i> ENGINEERING</span>
+            <span class="research-feature-sub">THINK BEYOND THE SCREEN</span>
+          </div>
+          <div class="research-feature-body">
+            <div class="research-feature-tag">EMBA RESEARCH · 2020 · STUDY REFLECTION</div>
+            <h3>從使用者經驗<br>到軟體架構</h3>
+            <p>以 2020 年的 EMBA 碩士研究為起點：從旅客訪談、顧客旅程到行動功能分析模型，探索 UX 設計與軟體架構之間的關係。</p>
+            <a class="text-link" href="/research/">查閱這份研究卷宗 <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <p class="research-feature-footnote">研究來源：《自助旅遊行動服務規劃－使用者經驗設計模式》，國立臺北教育大學 EMBA（2020）。</p>
       </div>
     </section>
 
     <section class="section books-section" id="books" aria-labelledby="books-title">
       <div class="container">
         <div class="section-heading">
-          <div><p class="section-kicker">01 / TECHNICAL BOOKS</p><h2 id="books-title">技術秘笈<span class="period">.</span></h2></div>
+          <div><p class="section-kicker">04 / TECHNICAL BOOKS</p><h2 id="books-title">技術秘笈<span class="period">.</span></h2></div>
           <p class="section-description">從 Swift 語言基礎到軟體設計模式，把曾經寫下的技術觀念整理成可以反覆翻閱的章節。</p>
         </div>
         <div class="book-grid">
@@ -114,33 +194,10 @@
       </div>
     </section>
 
-    <section class="section research-section" id="research" aria-labelledby="research-title">
-      <div class="container">
-        <div class="section-heading">
-          <div><p class="section-kicker">02 / RESEARCH &amp; INSIGHTS</p><h2 id="research-title">研究與思考<span class="period">.</span></h2></div>
-          <p class="section-description">技術研究得愈深，就愈難理解：為什麼人們總���不按我們畫好的流程操作？於是開始認真研究人類。</p>
-        </div>
-        <article class="research-feature">
-          <div class="research-feature-art" aria-hidden="true">
-            <span class="research-feature-mark">R / 01</span>
-            <span class="research-feature-type">UX <i>×</i> ENGINEERING</span>
-            <span class="research-feature-sub">THINK BEYOND THE SCREEN</span>
-          </div>
-          <div class="research-feature-body">
-            <div class="research-feature-tag">EMBA RESEARCH · 2020 · STUDY REFLECTION</div>
-            <h3>從使用者經驗<br>到軟體架構</h3>
-            <p>以 2020 年的 EMBA 碩士研究為起點：從旅客訪談、顧客旅程到行動功能分析模型，探索 UX 設計與軟體架構之間的關係。</p>
-            <a class="text-link" href="/research/">查閱這份研究卷宗 <span aria-hidden="true">↗</span></a>
-          </div>
-        </article>
-        <p class="research-feature-footnote">研究來源：《自助旅遊行動服務規劃－使用者經驗設計模式》，國立臺北教育大學 EMBA（2020）。</p>
-      </div>
-    </section>
-
     <section class="section projects-section" id="projects" aria-labelledby="projects-title">
       <div class="container">
         <div class="section-heading">
-          <div><p class="section-kicker">03 / OPEN SOURCE</p><h2 id="projects-title">開源實驗<span class="period">.</span></h2></div>
+          <div><p class="section-kicker">05 / OPEN SOURCE</p><h2 id="projects-title">開源實驗<span class="period">.</span></h2></div>
           <p class="section-description">框架、工具與歷年技術實驗。程式碼比口頭禪可靠，所有公開專案都能在 GitHub 找到原始版本。</p>
         </div>
         <div class="project-grid">

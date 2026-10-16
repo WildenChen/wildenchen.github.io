@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#15262f">
+  <meta name="description" content="從藝術設計、UI/UX 到 SillyTavern 人物卡與 MVU 變數系統：角色、使用者體驗和互動敘事的創作方法。">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="設計與創作｜計畫之外">
+  <meta property="og:description" content="從藝術設計、UI/UX 到 SillyTavern 人物卡與 MVU 變數系統：角色、使用者體驗和互動敘事的創作方法。">
+  <meta property="og:url" content="https://apps-dev.tech/design/">
+  <link rel="canonical" href="https://apps-dev.tech/design/">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/site-shell.css">
+  <link rel="stylesheet" href="/editorial.css">
+  <title>設計與創作｜計畫之外</title>
+</head>
+<body class="editorial-page">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+  <header class="site-header"><div class="container header-inner">
+    <a class="brand" href="/" aria-label="計畫之外，返回首頁"><span class="brand-symbol" aria-hidden="true">外<span>.</span></span><span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span></a>
+    <nav class="site-nav" aria-label="主要導覽"><a href="/#lab">技術實驗室</a><a href="/#design">設計與創作</a><a href="/#research">研究與思考</a><a href="/#books">著作與開源</a><a href="/about/">關於作者</a></nav>
+  </div></header>
+  <main id="main">
+    <section class="editorial-cover"><div class="container">
+      <a class="editorial-back" href="/#design">← 返回首頁 · 設計與創作</a>
+      <p class="editorial-overline">ART / UX / CREATIVE SYSTEMS</p>
+      <h1>設計與創作<span>.</span></h1>
+      <p class="editorial-lead">從畫面到互動，從軟體介面到角色世界。好設計不是多放幾個功能，而是讓想法變成真正能被理解、願意使用，也能持續運作的體驗。</p>
+      <div class="editorial-meta"><span>藝術與互動</span><span>UI / UX</span><span>SillyTavern</span><span>MVU</span><span>角色設計</span></div>
+    </div></section>
+    <div class="container editorial-container">
+      <p class="editorial-intro">早期的動畫與互動設計，延伸成行動 App 開發與服務設計；而人物卡、角色變數和 AI 互動，則讓「怎麼設計一個人願意持續參與的系統」有了另一種答案。</p>
+      <h2 class="editorial-heading">人物卡，也是一份設計規格</h2>
+      <div class="design-principles">
+        <article class="design-principle"><span class="n">01</span><div><h3>人物必須有自己的邏輯</h3><p>背景、性格、語氣、關係和行為動機，不是越多設定越好，而是要互相說得通。</p></div></article>
+        <article class="design-principle"><span class="n">02</span><div><h3>狀態不能只靠記住</h3><p>MVU 變數、人物關係和事件狀態，讓角色世界的變化可以被管理，而不是每次重新猜測。</p></div></article>
+        <article class="design-principle"><span class="n">03</span><div><h3>好操作，比設定華麗重要</h3><p>從角色卡的使用方式，到 UI 和資訊呈現，都需要讓操作者知道目前發生什麼、接下來能做什麼。</p></div></article>
+      </div>
+      <div class="editorial-list">
+        <article class="editorial-case" id="cards">
+          <div class="case-side"><span class="case-id">ART</span><span class="case-domain">SILLYTAVERN<br>PERSONA DESIGN</span><span class="case-status">創作分享</span></div>
+          <div class="case-detail"><h2>從一張人物卡開始，直到人物有了自己的生活</h2><p>SillyTavern 讓人物設定不再只是文字描述。人物必須能在不同情境下維持性格、反應方式與世界背景，同時避免長期互動中角色失真。</p><p>這裡將收錄適合公開的人物卡與設計說明。正式卡片檔案會在逐份檢查內容和分享權限後放上，不以私人原稿直接取代公開版本。</p></div>
+        </article>
+        <article class="editorial-case" id="mvu">
+          <div class="case-side"><span class="case-id">SYS</span><span class="case-domain">MVU<br>STATE MACHINES</span><span class="case-status">設計研究</span></div>
+          <div class="case-detail"><h2>人物會成長，變數就不能永遠停在初始值</h2><p>MVU 的有趣之處是把關係與事件變成可追蹤的狀態。但這也帶來設計上的難題：哪些資訊可以改、哪些是人物核心設定、衝突發生時由誰決定？</p><p>人物卡與 MVU 系統的結合，正好讓創作、使用者體驗與資料架構在同一個實驗裡交會。</p></div>
+        </article>
+        <article class="editorial-case" id="ux">
+          <div class="case-side"><span class="case-id">UX</span><span class="case-domain">HUMAN-CENTERED<br>DESIGN</span><span class="case-status">設計方法</span></div>
+          <div class="case-detail"><h2>會動的介面，不等於好用的介面</h2><p>從 Flash 動畫到手機應用，再到 EMBA 的使用者研究，核心問題一直沒有變：使用者為什麼要這樣操作？功能放在這裡，真的讓流程更好嗎？</p><p>這也是技術實驗中願意重新選型、甚至放棄既有工具的理由。<a class="text-link" href="/research/">閱讀 UX 與軟體架構研究 ↗</a></p></div>
+        </article>
+      </div>
+      <div class="perspective-teaser"><div><strong>文字也能用不同角度設計。</strong><p>同一段真實技術演進，換成語婕或筱蜜的第一人稱，讀到的就不只是功能取捨。</p></div><a href="/notes/yujie/">閱讀多重觀點示範 ↗</a></div>
+    </div>
+  </main>
+  <footer class="footer"><div class="container footer-inner">
+    <div><strong>計畫之外<span class="period">.</span></strong><p>UNPLANNED NOTES · 設計、研究與工程之間</p></div>
+    <div class="footer-right"><a href="/">返回首頁 ↗</a><a href="https://github.com/WildenChen" target="_blank" rel="noopener noreferrer">GitHub ↗</a><span>© 2026 計畫之外</span></div>
+  </div></footer>
+
+</body>
+</html>

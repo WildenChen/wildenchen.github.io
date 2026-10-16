@@ -10,14 +10,19 @@ Public reading site for Swift technical books, UX research notes, and selected o
 - `index.html`: homepage centered on writing and projects
 - `about/index.html`: author introduction, separate from homepage
 - `research/index.html`: 2020 EMBA research reflections
+- `lab/index.html`: public engineering case studies and architecture decisions
+- `design/index.html`: design, SillyTavern character systems and MVU overview
+- `notes/yujie/index.html`: first multi-perspective article example (real technical perspective and creative character narration)
 - `styles.css`, `research.css`: baseline and research styles
 - `site-shell.css`: shared branding and navigation
 - `portal.css`: homepage design
 - `about.css`: author page
+- `editorial.css`: labs, design pages and multi-perspective layouts
+- `perspectives.js`: accessible, lightweight viewpoint tabs
 - `favicon.svg`: site icon
 
 ## Privacy
 Only purposefully public content belongs in the repository. Local research originals are kept under `.private/`, which is ignored by Git. Never add private PDFs, DOCX files, interview transcripts, internal systems, access credentials, or other sensitive material.
 
 ## Editorial principle
-The homepage should invite readers to discover books, research, and software, rather than serve as a personal résumé. Details about the writer belong on the About page. Keep jokes in the story without explaining them.
+The homepage should invite readers to discover engineering experiments, art and UX, books, research, and software, rather than serve as a personal résumé. Details about the writer belong on the About page. Keep jokes in the story without explaining them.
