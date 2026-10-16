@@ -53,7 +53,6 @@ body.home-page{background:var(--story-cream);color:#192b2e}
 .dossier-quote{margin-top:21px;font-size:14px;font-weight:800;line-height:1.85;letter-spacing:.3px;font-family:Georgia,"Noto Serif TC","Songti TC",serif;color:#654f42;position:relative;z-index:2}
 .dossier-footer{border-top:1px solid #b0a48f;margin-top:22px;padding-top:12px;color:#718074;font-size:9px}
 .dossier-footer span:last-child{font-size:17px}
-.dossier-footnote{font-size:10px;line-height:1.8;color:#a7bcb0;text-align:center;margin-top:24px;max-width:440px}
 .home-page .hero-bottom{color:#c0cfc2;border-top-color:#657b734b;font-weight:800;letter-spacing:1.2px}
 .home-page .hero-bottom span:first-child{color:#e6c28b}
 .home-page .journey-section{background:#f8f1e5;position:relative}
@@ -84,7 +83,6 @@ body.home-page{background:var(--story-cream);color:#192b2e}
 .narrator-label{display:block;color:#ebc78e;font-size:10px;font-weight:850;letter-spacing:2.1px}
 .narrator-interlude p{font-family:"Noto Serif TC","Songti TC","PingFang TC",serif;font-size:clamp(17px,2vw,23px);font-weight:650;line-height:1.8;margin:12px 0}
 .narrator-interlude strong{color:#f0c68a}
-.narrator-foot{display:block;color:#9cb3b2;font-size:11px}
 .home-page .books-section{background:#eae6dd}
 .home-page .book-card{background:#fffaf0;border:1px solid #c9c0b0;box-shadow:4px 4px 0 #d2c8ba}
 .home-page .book-card:hover{border-color:#8b7b64;box-shadow:8px 9px 0 #d2c8ba}
