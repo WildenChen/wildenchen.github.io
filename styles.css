@@ -153,3 +153,28 @@ a:focus-visible{outline:3px solid #2f9b88;outline-offset:4px;border-radius:3px}
   .footer-inner{align-items:flex-start;flex-direction:column;gap:16px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+
+
+/* A concise, public cross-disciplinary profile, separate from books/projects. */
+.journey-section{background:#fffefa;border-bottom:1px solid #e1e8e1}
+.journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.journey-step{min-width:0;min-height:330px;display:flex;flex-direction:column;padding:27px;background:#f4f6f1;border:1px solid #e0e6dd;transition:transform .2s,border-color .2s,box-shadow .2s}
+.journey-step:hover{transform:translateY(-3px);border-color:#a7bdb2;box-shadow:0 12px 28px #17252a0c}
+.journey-step-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:10px;font-weight:800;letter-spacing:1.5px;color:#71877d}
+.journey-step-top span:first-child{font-family:Georgia,serif;font-size:24px;font-style:italic;font-weight:400;color:#789d8c}
+.journey-mark{position:relative;display:flex;align-items:center;justify-content:center;height:70px;width:92px;margin:24px 0 11px}
+.journey-mark-visual span{position:absolute;width:44px;height:44px;border:1.5px solid #487e77;transform:rotate(35deg)}
+.journey-mark-visual span:nth-child(2){transform:translateX(14px) rotate(35deg);border-color:#b99b6e}
+.journey-mark-visual span:nth-child(3){transform:translateX(27px) rotate(35deg);border-color:#a7c8b6}
+.journey-mark-mobile span:first-child{width:42px;height:63px;border:2px solid #487e77;border-radius:9px}
+.journey-mark-mobile span:last-child{width:18px;height:3px;background:#b99b6e;position:absolute;bottom:8px;left:37px;border-radius:4px}
+.journey-mark-ux span{width:30px;height:30px;border:2px solid #3c7f77;border-radius:50%;position:absolute;left:0}
+.journey-mark-ux span:nth-child(2){left:26px;border-color:#b99b6e}
+.journey-mark-ux span:nth-child(3){left:52px;border-color:#a3c4b0}
+.journey-step h3{font-size:21px;line-height:1.4;margin:3px 0 10px;letter-spacing:-.3px}
+.journey-step p{color:#647670;font-size:13px;line-height:1.9;margin:0}
+.journey-research{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 19px;margin-top:19px;border-left:3px solid #618c7f;background:#eff3ec;padding:18px 21px}
+.journey-research-label{font-size:10px;letter-spacing:1.7px;font-weight:800;color:#4d7f72}
+.journey-research p{font-size:13px;font-weight:700;margin:0;color:#304e48}
+.journey-research>span:last-child{font-size:11px;color:#71837b}
+@media(max-width:800px){.journey-grid{grid-template-columns:1fr;gap:12px}.journey-step{min-height:0;padding:23px}.journey-mark{margin-block:13px}.journey-research{align-items:flex-start;flex-direction:column;gap:6px}}
