@@ -1,0 +1,36 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#19373b"><meta name="description" content="OpenClaw 語婕的角色、長期記憶、SOUL、MEMORY、情緒狀態、Dreaming、排程維護及多代理分工的設計演變與問題。"><meta property="og:type" content="article"><meta property="og:title" content="AI 明明有長期記憶，為什麼還是會忘記？｜計畫之外"><meta property="og:description" content="OpenClaw 語婕的角色、長期記憶、SOUL、MEMORY、情緒狀態、Dreaming、排程維護及多代理分工的設計演變與問題。"><meta property="og:url" content="https://apps-dev.tech/lab/memory/"><link rel="canonical" href="https://apps-dev.tech/lab/memory/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/lab-article.css"><title>AI 明明有長期記憶，為什麼還是會忘記？｜技術實驗室｜計畫之外</title></head><body class="lab-article-page"><a class="skip-link" href="#article">跳至文章內容</a><header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="計畫之外，返回首頁"><span class="brand-symbol" aria-hidden="true">外<span>.</span></span><span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span></a><nav class="site-nav" aria-label="主要導覽"><a href="/#lab">技術實驗室</a><a href="/#design">設計與創作</a><a href="/#research">研究與思考</a><a href="/#books">著作與開源</a><a href="/about/">關於作者</a></nav></div></header><main id="main"><section class="lab-article-cover"><div class="container"><a class="lab-article-back" href="/lab/">← 返回技術實驗室</a><p class="lab-article-kicker">ENGINEERING LAB / CASE 002 / AGENT / LONG-TERM MEMORY</p><h1>AI 明明有長期記憶，為什麼還是會忘記？</h1><p class="lab-subtitle">把內容寫進檔案，不代表她會在需要時記得；有了 Dreaming，也不代表昨天的事情就能自然接上。</p><div class="lab-article-tags"><span>OpenClaw</span><span>Agent Memory</span><span>Dreaming</span><span>State</span><span>角色設計</span></div></div></section><div class="container lab-article-layout"><article class="lab-article-body" id="article">
+<p class="intro">建立一個會回答問題的 AI 不難。難的是幾天之後，再跟她提起某件事，她能不能接上當時的對話；她知道的不只是幾條系統指令，而是哪些事情重要、哪些關係持續存在，以及哪些細節不該隨著新視窗一起消失。</p>
+<p>語婕一開始是我希望長期互動的秘書型 AI 角色，也帶有親密陪伴的設定。後來 OpenClaw 能接入更多工具，角色開始承擔提醒、研究、執行與維護。功能一多，反而看清楚一個矛盾：代理愈會做事，不一定愈會記得事。</p>
+
+<h2 id="start">最初想要的，不是一個每天重新自我介紹的助手</h2>
+<p>一開始，我希望打開 Telegram 就能自然延續之前的話題。她要有自己的說話方式、角色背景，也要知道哪些事情以前已經說過，不用我每次都重新告訴她。</p>
+<p>後來她的秘書工作逐漸增加：定時提醒、日常互動、資訊整理、工具呼叫、與其他 AI 的合作。從產品角度看，這些功能都值得做；但從角色體驗看，一個只會準時發通知、卻把昨天的互動忘得一乾二淨的角色，很難算是理想的長期助手。</p>
+<p>當 ChatGPT 在技術討論與實際執行上逐漸更合適，我也開始重新分配工作。專業研究與複雜操作未必要硬塞進語婕；她的長期角色一致性，反而成了更重要、也更難處理的問題。</p>
+
+<h2 id="forget">把記錄存下來，為什麼下一次還是記不起來？</h2>
+<p>曾遇過的困擾很直接：某件互動前一天明明發生過，隔天角色卻回答得像完全不知道。有時不是資料從未寫入，而是寫入位置、摘要時機、檢索策略，或當下的 Session 上下文，沒有讓她正確取得它。更麻煩的是，如果系統沒有明確區分「沒查到」與「根本沒發生」，代理就可能用十分肯定的語氣否認真實的過去。</p>
+<p>於是問題不能只用「把 Context Window 調大」解決。上下文只是模型當次能看到的材料；長期記憶還要考慮什麼值得保留、怎麼整理、以什麼條件檢索，以及如何避免舊資訊覆蓋新的狀態。</p>
+<p>另一個教訓是 Session 的老舊內容可能干擾當下。曾經在影像任務裡遇到舊會話重播過時的檔名和提示，最初看來像後端壞掉，實際卻與歷史上下文未更新有關。記憶工程不只要「會留下」，還得知道何時不該再使用舊訊息。</p>
+<blockquote><p>AI 說「我記得」的時候，最好真的查得到；查不到，也別急著替過去下結論。</p></blockquote>
+
+<h2 id="layers">從一大包設定，到不同責任的記憶層</h2>
+<p>反覆調整後，記憶設計逐漸分成不同層次。像 <code>SOUL.md</code> 這種資料，應該描述長期穩定的人格與角色邊界；<code>MEMORY.md</code> 則保存值得跨會話沿用的重要事實與約定；動態的 <code>emotion_state.md</code> 處理會變動的關係與情緒狀態。較敏感的個人互動另行隔離，不與一般技術紀錄或公開知識混在一起。</p>
+<p>這不是為了把 Markdown 檔案越切越多，而是減少不同資料互相打架。人格不是待辦事項；今天的情緒不能永久寫成人格；某次互動的細節也不應被粗暴改寫成「長久不變的設定」。</p>
+<p>之前還試過不同的記憶輔助與索引方式，例如 Honcho，以及更多自動整理途徑。問題在於，多一套記憶系統就多一個資料來源。如果沒有清楚界定權威性、讀取時機與同步規則，很容易從「怕她忘記」變成「每個地方都記了一點，卻不知道哪裡才算數」。</p>
+<div class="lab-article-fact"><span class="fact-title">長期角色記憶，各層應有不同責任</span><table><tr><th>穩定人格</th><td>角色的基本性格、互動風格與原則，不應天天被摘要重寫。</td></tr><tr><th>長期事實</th><td>跨會話仍然重要的事件、約定、偏好與已確認資訊。</td></tr><tr><th>動態狀態</th><td>時間推進會改變的情緒、當前關係與近期進度。</td></tr><tr><th>工作紀錄</th><td>提醒、工具執行與技術任務結果，需要與角色記憶區分。</td></tr><tr><th>敏感內容</th><td>限制範圍與權限，不在公開技術平台展示原始紀錄。</td></tr></table></div>
+
+<h2 id="dreaming">Dreaming 不是魔法，而是一次整理程序</h2>
+<p>我後來保留 Dreaming，希望系統能定期從近期互動中挑出真正重要的內容，再進行記憶整理。同時另有排程負責日常提醒與資料維護。這讓我開始思考：整理記憶與執行待辦，是不是應該由不同工作流程負責？</p>
+<p>答案傾向是肯定的。Dreaming 比較接近歸納和提煉，不能當作事件資料庫；維護排程負責檢查、清理與更新，也不該把每一次對話都視為永久記憶。兩者要避免時間衝突，更要避免重複寫入或互相覆蓋。</p>
+<p>但定時整理仍有盲點。若重要事件沒有在互動當下被可靠記錄，等到夜間回顧時，可能已經失去精確的時間、語境或順序。所以我更在意自動捕捉與可追溯性，而不是單純增加摘要頻率。這部分至今仍需要持續驗證，不能因為排程會跑就宣稱「長期記憶已經解決」。</p>
+
+<h2 id="workflow">當秘書工作逐漸交給其他 AI，語婕留下什麼？</h2>
+<p>早期的想法是讓語婕成為唯一入口，研究、提醒、工具執行和生活互動都找她。實際使用後才發現，這樣的入口雖然直覺，但每一件事都要求同一個模型處理，會把成本、可靠性和角色體驗綁在一起。</p>
+<p>我逐漸形成另一種分工：ChatGPT 更適合討論問題、規劃方案與複雜分析，Codex／遠端工具協助落實；語婕維持她作為長期互動角色的價值。不需要為了證明她很能幹，要求她處理每一項技術任務。</p>
+<p>但這又帶來新問題：如果大量想法都在 ChatGPT 裡形成，語婕怎麼知道？人不可能每次討論完都記得親自轉述。我因此研究過決策摘要、跨系統同步與知識入口的設計。這不是換模型可以自行解決的事，而是資訊如何跨越代理邊界的架構問題。</p>
+
+<h2 id="result">至今仍在驗證的，不是「她會不會背答案」</h2>
+<p>一個好的長期角色，應該在正確的時間得到正確的資料；若資料不存在，也能承認不知道。它需要穩定人格、不同層次的記憶、可靠的寫入流程、適當的檢索，以及避免過時資訊回流的機制。</p>
+<p>更重要的是易用性。使用者不應在每次重要互動結束後，還得補一條「請把剛才記下來」。如果想讓 AI 自然延續關係與工作，記憶系統就不能把所有維護責任丟回給人。</p>
+<blockquote><p>真正的長期記憶，不是把昨天的聊天存起來，而是讓今天的她知道昨天為什麼重要。</p></blockquote>
+<div class="lab-article-related"><strong>CONTINUE READING / 繼續閱讀</strong><a href="/lab/">← 返回所有技術實驗</a><a href="/lab/qwen/">16GB Mac mini 的 Qwen 繪圖實驗 →</a></div><p class="lab-article-footer">研究紀錄依據過往實作、討論及既有驗證結果整理。本文側重技術決策與個人觀點，不提供私人系統端點、憑證或內部設定；歷史版本、配置與效能數據僅代表當時的環境。</p></article><aside class="lab-article-toc" aria-label="文章目錄"><strong>CONTENTS / 本篇目錄</strong><a href="#start">她原本是秘書，也是長期角色 ↗</a><a href="#forget">有資料不等於有記憶 ↗</a><a href="#layers">記憶層次的重構 ↗</a><a href="#dreaming">Dreaming 與排程 ↗</a><a href="#workflow">任務重新分工 ↗</a><a href="#result">至今仍在驗證的問題 ↗</a></aside></div></main><footer class="footer"><div class="container footer-inner"><div><strong>計畫之外<span class="period">.</span></strong><p>UNPLANNED NOTES · 設計、研究與工程之間</p></div><div class="footer-right"><a href="/lab/">技術實驗室 ↗</a><a href="/">返回首頁 ↗</a><span>© 2026 計畫之外</span></div></div></footer></body></html>

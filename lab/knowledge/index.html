@@ -1,0 +1,41 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#19373b"><meta name="description" content="從 Obsidian 和 iCloud、OpenClaw 工作區、手機 Fast Note Sync 到 GitHub/Gitea 雙推、OpenKnowledge MCP 的知識庫設計與取捨。"><meta property="og:type" content="article"><meta property="og:title" content="我的知識庫，為什麼逐漸離開 iCloud？｜計畫之外"><meta property="og:description" content="從 Obsidian 和 iCloud、OpenClaw 工作區、手機 Fast Note Sync 到 GitHub/Gitea 雙推、OpenKnowledge MCP 的知識庫設計與取捨。"><meta property="og:url" content="https://apps-dev.tech/lab/knowledge/"><link rel="canonical" href="https://apps-dev.tech/lab/knowledge/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/lab-article.css"><title>我的知識庫，為什麼逐漸離開 iCloud？｜技術實驗室｜計畫之外</title></head><body class="lab-article-page"><a class="skip-link" href="#article">跳至文章內容</a><header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="計畫之外，返回首頁"><span class="brand-symbol" aria-hidden="true">外<span>.</span></span><span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span></a><nav class="site-nav" aria-label="主要導覽"><a href="/#lab">技術實驗室</a><a href="/#design">設計與創作</a><a href="/#research">研究與思考</a><a href="/#books">著作與開源</a><a href="/about/">關於作者</a></nav></div></header><main id="main"><section class="lab-article-cover"><div class="container"><a class="lab-article-back" href="/lab/">← 返回技術實驗室</a><p class="lab-article-kicker">ENGINEERING LAB / CASE 004 / KNOWLEDGE / DATA ARCHITECTURE</p><h1>我的知識庫，為什麼逐漸離開 iCloud？</h1><p class="lab-subtitle">原本只是想讓筆記在不同裝置上同步，最後卻得替人類與 AI 訂出一套資料的生存規則。</p><div class="lab-article-tags"><span>Obsidian</span><span>iCloud</span><span>Git</span><span>Fast Note Sync</span><span>OpenKnowledge</span><span>MCP</span></div></div></section><div class="container lab-article-layout"><article class="lab-article-body" id="article">
+<p class="intro">最早用 Obsidian 時，我的想法很簡單：把筆記放在 iCloud，Mac 和 iPhone 都能開、都能改，不是很好嗎？後來我開始讓 OpenClaw、Codex 和其他 AI 一起參考這些知識，整件事就漸漸失去「簡單」兩個字。</p>
+<p>這段研究最有趣的地方是，我不是一開始就打算做 Git 同步、MCP 或統一知識入口。很多架構上的選擇，是因為前一個選擇已經無法滿足下一階段的需求。也因為如此，我一直在意：<strong>到底誰才是資料的主人？</strong></p>
+
+<h2 id="begin">從最單純的筆記同步開始</h2>
+<p>Obsidian 的優點很明顯：內容是 Markdown，筆記可自行整理，離線也能閱讀，日常寫作非常順手。當時我需要在工作電腦、家裡的 Mac，以及手機上接續同一份資料，所以 iCloud 看起來很自然。</p>
+<p>如果需求只到「人打開筆記、人自己修改」，這個方法不一定有什麼問題。但我後來把 AI 當成工作夥伴，想讓它在讀到資料後協助整理、查詢，甚至把研究結論寫回知識庫。這時候，檔案存在雲端並不等於不同系統都能安全、穩定地操作它。</p>
+<p>最初也嘗試過讓 Obsidian 和 OpenClaw 工作區並行：一份是日常筆記，一份是代理的即時設定與記憶。問題很快出現。當角色人格、知識或設定在不同地方各有一份，究竟該更新哪一份？如果今天代理改了工作區，明天筆記又同步了舊設定，誰說了算？</p>
+
+<h2 id="personas">當代理也開始使用知識，複製檔案不是共享知識</h2>
+<p>AI 並不是一個會自動理解檔案歷史的使用者。它讀到什麼，就容易以當前內容當作依據。於是多份近似文件反而危險：一份舊的角色設定、一份剛修改的工作區記憶，以及一份筆記摘要，可能各自都說得通，合在一起卻互相矛盾。</p>
+<p>那時我曾想過把 Obsidian 作為唯一長期來源，再把必要資料部署到代理工作區。這個方向解決部分重複維護問題，但又增加了發布流程：改完 Obsidian，何時反映到 Agent？Agent 在互動中學到的新事，又怎麼返回長期知識？</p>
+<p>後來逐漸形成一個區分：<strong>代理即時運作所需的 Runtime 狀態，與可長期累積、跨工具引用的知識庫，不應混成同一包資料。</strong>角色的短期狀態、工具執行痕跡和正式知識，其更新速度與保存條件都不同。</p>
+
+<h2 id="sync">手機同步不是版本管理</h2>
+<p>為了讓手機 Obsidian 仍能方便使用，我研究 Fast Note Sync（FNS）與 Mac、Linux 上的資料同步。這裡曾碰過令我印象很深的問題：手機有時只是誤觸進入編輯狀態，未必真的修改文字，卻可能讓同步流程出現衝突或異常。</p>
+<p>如果靠肉眼看檔案時間，容易以為「較新的就是對的」。但從 Git 的角度，時間新不代表內容更正確；一個沒有意義的同步事件，也不該覆蓋掉經過確認的版本。</p>
+<p>我因此更希望 Git 成為可追溯的版本依據。手機仍可用 FNS 做日常同步，但進入正式資料時，應該能檢查變更、辨識衝突，必要時用 Git 已確認的內容復原。這裡的重點不是「禁止在手機修改」，因為我也希望偶爾能在手機直接寫；而是<strong>允許編輯，不等於放任任何同步結果都變成唯一真相。</strong></p>
+<p>手機與 Git 的雙向同步尤其需要小心：推送順序、空白變更、同時修改、離線復原，以及兩邊來源不一致時的處理方式，都不能只靠檔案複製解決。這些情況讓 FNS 和 Git 自動化的責任逐漸分開。</p>
+
+<h2 id="source">版本控制之外，還要定義資料主來源</h2>
+<p>隨著知識庫擴大，我開始把一般知識與文學創作資料分成不同儲存範圍。兩者都適合使用 Markdown 與 Git，但操作模式並不一樣：一般研究文件需要穩定引用、更新與搜尋；創作文件則可能需要手機直接改稿、跨節修訂、多人或多代理協作。</p>
+<p>因此採取 Git 作為耐久版本的主來源，搭配 GitHub 與自架 Gitea 的雙重儲存；工作副本和手機同步負責日常編輯。Git 提供版本歷史、差異與回復能力，但不神奇地解決所有衝突，尤其是創作中的即時工作副本，仍要清楚標明什麼是尚未提交的修改。</p>
+<div class="lab-article-fact"><span class="fact-title">逐步形成的責任分工</span><table><tr><th>Markdown / Git</th><td>正式且可追溯的內容、版本歷史、差異與回復。</td></tr><tr><th>GitHub + Gitea</th><td>兩個儲存端，降低單一來源依賴，但推送一致性必須驗證。</td></tr><tr><th>Obsidian / FNS</th><td>讓人用手機、平板或電腦便利地編輯與閱讀。</td></tr><tr><th>OpenKnowledge</th><td>讓需要知識的代理能透過較一致的入口查詢，而不是各自複製檔案。</td></tr><tr><th>Intake / 候選寫入</th><td>重要 AI 發現先進入受控收斂流程，避免直接覆蓋正式知識。</td></tr></table></div>
+<p>我還開始在意權限和責任。不是所有 Agent 都需要直接讀取全部知識，也不是每個工具都應該能寫正式文件。對 Codex 這類直接操作儲存庫的工具，原本的 Git 流程有時比多串一層知識 API 更合理；對一般聊天代理，統一查詢入口則更方便。</p>
+
+<h2 id="gateway">從一堆 MCP 走向比較清楚的入口</h2>
+<p>這個過程中，曾評估或實際使用不同的 Obsidian MCP、Docker 服務、知識整理工具與 Gateway。起初每多一種工具，就好像多一條能讓 AI 讀取資料的路；直到路太多，反而得花時間管理哪一條通往哪個版本。</p>
+<p>後來才逐漸收斂成 OpenKnowledge 這類統一讀取入口，把不同資料來源的索引與查詢集中管理。重要寫回另走受控 Intake，而不是讓每個 Agent 隨手修改正式 Markdown。這也能幫助不同模型與前端以比較一致的方式取得已整理的知識。</p>
+<p>在部署設計上，我也更傾向讓長期執行的知識服務留在適合常駐的 Linux 節點，而不是隨某台平常拿來操作的電腦開關機；手機同步與 AI 讀取則是兩條不同的使用路徑。</p>
+<p>不過，統一入口不代表架構再也不會改。當遇到認證、MCP 用戶端相容或 Gateway 健康檢查問題時，還是要重新評估。收斂的目的是減少責任重疊，而不是把所有元件湊成一個名字就宣稱成功。</p>
+
+<h2 id="tradeoff">最後真的比較簡單了嗎？</h2>
+<p>如果從服務數量來看，現在的架構顯然比「Obsidian 放 iCloud」複雜。但如果從真正要完成的工作來看，衡量標準就不一樣了：人能不能安心編輯？Git 能不能回復？Agent 能不能查到同一份可信內容？錯誤同步能不能被發現？重要變更能不能留下原因？</p>
+<p>我不會說這套架構對每個人都適合。對只需要手機與電腦同步筆記的人，iCloud 可能已經足夠；對同時管理多個 AI、兩套不同性質的知識庫，還有跨設備編輯需求的人，資料來源與變更管理就成了不同等級的問題。</p>
+<p>因此每次調整時，我都要問自己：這一層到底解決了什麼問題？如果只是在解決上一層自己製造的問題，或許該考慮砍掉它，而不是再開一個服務補上去。</p>
+
+<h2 id="takeaway">知識庫最後留下的，不只是筆記</h2>
+<p>這次演進讓我重新學了一遍資料架構、Git 版本控制、同步衝突、權限、代理整合與服務設計。比技術名稱更重要的是，這些元件必須共同服務一件事：讓人在想事情時更方便，也讓 AI 能取得足夠可靠的背景，而不是為了維護知識庫又創造一份新的工作。</p>
+<blockquote><p>最初想解決的是「筆記放在哪裡」。最後真正需要回答的，是「當五種工具都說自己有一份答案時，誰才算說了算？」</p></blockquote>
+<div class="lab-article-related"><strong>CONTINUE READING / 繼續閱讀</strong><a href="/lab/">← 返回所有技術實驗</a><a href="/lab/remote/">為什麼想讓 ChatGPT 直接操作電腦？ →</a></div><p class="lab-article-footer">研究紀錄依據過往實作、討論及既有驗證結果整理。本文側重技術決策與個人觀點，不提供私人系統端點、憑證或內部設定；歷史版本、配置與效能數據僅代表當時的環境。</p></article><aside class="lab-article-toc" aria-label="文章目錄"><strong>CONTENTS / 本篇目錄</strong><a href="#begin">從最單純的筆記同步開始 ↗</a><a href="#personas">當代理也開始使用知識 ↗</a><a href="#sync">手機同步不是版本管理 ↗</a><a href="#source">重新定義資料主來源 ↗</a><a href="#gateway">從一堆 MCP 走向單一入口 ↗</a><a href="#tradeoff">沒有一套完全不用維護的答案 ↗</a><a href="#takeaway">真正想保留下來的能力 ↗</a></aside></div></main><footer class="footer"><div class="container footer-inner"><div><strong>計畫之外<span class="period">.</span></strong><p>UNPLANNED NOTES · 設計、研究與工程之間</p></div><div class="footer-right"><a href="/lab/">技術實驗室 ↗</a><a href="/">返回首頁 ↗</a><span>© 2026 計畫之外</span></div></div></footer></body></html>

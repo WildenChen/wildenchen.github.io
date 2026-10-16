@@ -10,7 +10,7 @@ Public reading site for Swift technical books, UX research notes, and selected o
 - `index.html`: homepage centered on writing and projects
 - `about/index.html`: author introduction, separate from homepage
 - `research/index.html`: 2020 EMBA research reflections
-- `lab/index.html`: public engineering case studies and architecture decisions
+- `lab/index.html`: engineering lab index, with five long-form, publicly reviewed engineering cases in subdirectories
 - `design/index.html`: design, SillyTavern character systems and MVU overview
 - `notes/yujie/index.html`: first multi-perspective article example (real technical perspective and creative character narration)
 - `styles.css`, `research.css`: baseline and research styles
@@ -18,6 +18,7 @@ Public reading site for Swift technical books, UX research notes, and selected o
 - `portal.css`: homepage design
 - `about.css`: author page
 - `editorial.css`: labs, design pages and multi-perspective layouts
+- `lab-article.css`: long-form technical case study reading layout
 - `perspectives.js`: accessible, lightweight viewpoint tabs
 - `favicon.svg`: site icon
 

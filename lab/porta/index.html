@@ -1,0 +1,37 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#19373b"><meta name="description" content="從手機遠端操作 Antigravity、Porta 相容性改造，到官方遠端功能出現後的果斷取捨：一份以使用者體驗為核心的工程決策紀錄。"><meta property="og:type" content="article"><meta property="og:title" content="辛苦改好的 Porta，為什麼最後不要了？｜計畫之外"><meta property="og:description" content="從手機遠端操作 Antigravity、Porta 相容性改造，到官方遠端功能出現後的果斷取捨：一份以使用者體驗為核心的工程決策紀錄。"><meta property="og:url" content="https://apps-dev.tech/lab/porta/"><link rel="canonical" href="https://apps-dev.tech/lab/porta/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/lab-article.css"><title>辛苦改好的 Porta，為什麼最後不要了？｜技術實驗室｜計畫之外</title></head><body class="lab-article-page"><a class="skip-link" href="#article">跳至文章內容</a><header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="計畫之外，返回首頁"><span class="brand-symbol" aria-hidden="true">外<span>.</span></span><span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span></a><nav class="site-nav" aria-label="主要導覽"><a href="/#lab">技術實驗室</a><a href="/#design">設計與創作</a><a href="/#research">研究與思考</a><a href="/#books">著作與開源</a><a href="/about/">關於作者</a></nav></div></header><main id="main"><section class="lab-article-cover"><div class="container"><a class="lab-article-back" href="/lab/">← 返回技術實驗室</a><p class="lab-article-kicker">ENGINEERING LAB / CASE 001 / UX / AGENT / REMOTE</p><h1>辛苦改好的 Porta，為什麼最後不要了？</h1><p class="lab-subtitle">能連上，不代表能好好工作；程式碼已經寫下去，也不代表應該永遠維護它。</p><div class="lab-article-tags"><span>Antigravity</span><span>Porta</span><span>Agent Remote</span><span>UX</span><span>架構取捨</span></div></div></section><div class="container lab-article-layout"><article class="lab-article-body" id="article">
+<p class="intro">我想要的從來不是「把 Antigravity 的對話框搬到手機上」。如果只是換一個地方打字，其實沒有解決真正的問題。我在意的是：人不在電腦前面時，能不能照常交代 Agent 做事、看它改了什麼、決定要不要批准，最後確認程式到底有沒有正常運作。</p>
+<p>這個需求看起來像遠端桌面，實際上卻牽涉一整條工作流程。也是因為如此，Porta 從最初的候選工具，逐漸變成一個持續修改的工程實驗。到了後來，我反而選擇不再用它。</p>
+
+<h2 id="origin">最初想解決的，不只是遠端聊天</h2>
+<p>2026 年中，我已經在用 ChatGPT、Codex 與不同的 AI 開發工具，也想充分利用 Antigravity 的能力。手機對我不是電腦的裝飾品：不在家、不在書桌前，甚至只是暫時離開 Mac，我都希望工作不必整個中斷。</p>
+<p>我的比較基準很現實。遠端操作至少應該能看見 Agent 的執行結果，知道它正在處理哪個專案、有沒有修改檔案、Git 差異是什麼、需不需要 Approval，以及能不能進一步測試和修正。ChatGPT Codex 的遠端體驗讓我知道，這種工作方式並不是天方夜譚。</p>
+<blockquote><p>如果我還是得回到電腦前面，手動完成最後那十個步驟，那個「遠端」究竟替我省下了什麼？</p></blockquote>
+<p>Porta 當時提供了另一種可能：透過 Web 介面連接 Antigravity。我可以先試著用它補足官方方案還沒處理到的操作場景，而不必自己從零寫一套 IDE。</p>
+
+<h2 id="porta">從「連得上」一路改到「到底好不好用」</h2>
+<p>實作並不是只有架一個網頁。當時逐步處理了 Antigravity Language Server 的探索、連線與 RPC 相容、對話和專案的路由，以及遠端介面與本機代理之間的整合。服務需要長時間待命，所以也牽涉 Mac 上的常駐程序、入口防護，以及遠端和本機的不同使用方式。</p>
+<p>對工程師而言，每修好一個相容性問題，理論上都算有進展。可是站在使用者角度，事情並沒有那麼簡單。<strong>能送出一段 Prompt，和能完成一次完整的開發任務，是兩種不同的產品。</strong></p>
+<p>例如，光有聊天室還不夠。我希望從手機就能掌握檔案修改、建置結果、差異、終端機，以及需要確認的操作；而不是 Agent 說「完成了」，我還要另外登入一台機器逐項驗收。</p>
+<p>Porta 的功能和工作流程之間，一直存在這種落差。於是我才反覆試、反覆改。這不是不知道怎麼停手，而是在驗證究竟是某個 Bug 阻擋了使用體驗，還是整個方案的定位原本就與我的需求不同。</p>
+
+<h2 id="roadblocks">卡住的不是只有程式碼</h2>
+<p>後來也研究過讓其他 Agent 透過腳本或橋接方式，間接指揮 Antigravity。這條路曾經碰到權限、workspace allowlist、sandbox 和檔案讀取限制。表面上看起來像是「有一條通道」，但真正要用的時候，重要步驟反而無法可靠完成。</p>
+<p>我後來更在意一件事：不要把「可以呼叫某個介面」誤認成「已經具有穩定的遠端工作能力」。真正的流程要能從啟動任務，到取得狀態、拿回結果、理解錯誤，都有可驗證的閉環。</p>
+<p>因此也考慮過將 Porta 的協定能力整理成 MCP 橋接，讓 Agent 不再依賴 Web 介面。但這又是不同的問題：IDE 專用代理介面與一般電腦操作不是同一件事，認證成功也不等於工具呼叫已經走通。在後續檢查中，相關橋接沒有形成值得持續依賴的完整成功流程，最終也停止常駐。</p>
+<div class="lab-article-fact"><span class="fact-title">當時實際要比較的，不是單一功能</span><table><tr><th>連線能力</th><td>手機能否找到正確的電腦、專案與會話？</td></tr><tr><th>操作完整度</th><td>能否看修改、執行測試、處理核准，而不只是聊天？</td></tr><tr><th>可靠性</th><td>失敗時是否能定位原因、重試並確認結果？</td></tr><tr><th>使用成本</th><td>每次操作需要多少額外步驟、維護多少相容層？</td></tr></table></div>
+
+<h2 id="turn">官方遠端能力出現，原本的優勢就不一樣了</h2>
+<p>轉折並不是某一天突然發現自己不會維護 Porta，而是官方的遠端控制能力開始提供更符合需求的使用路徑。以前自行修改工具，是因為我需要的事情沒有被照顧到；當原本的缺口逐漸縮小，自己維護協定、處理相容性、追著上游修正的價值也跟著下降。</p>
+<p>我不需要因為已經花過時間，就強迫自己繼續用。更不需要證明自架版一定比官方厲害。<strong>使用體驗和維護負擔才是判斷依據，過去的投入不是。</strong></p>
+<p>所以最後把 Porta 的 Web UI 退下，停止沒有形成可靠工作閉環的 Antigravity MCP 橋接；原始碼可以保留作為研究紀錄，但不必繼續佔據日常流程。這也沒有阻止我繼續使用 Antigravity IDE 本身。</p>
+
+<h2 id="decision">放棄自己做的東西，並不難看</h2>
+<p>如果把這段經歷寫成履歷，可能只會看到「遠端代理服務、RPC、MCP、Web UI、逆向相容」。這些技術的確用到了，卻還沒有說明我到底在解決什麼問題。</p>
+<p>真正重要的是，我在工程與 UX 之間建立了一個退出條件：當新的方案已經能用更少的操作與維護成本完成任務，就沒有必要保留比較複雜的自製途徑。</p>
+<p>有些工具繼續修下去，確實可能越修越完整。但「還能繼續做」和「值得繼續做」之間，有很大的差別。</p>
+
+<h2 id="lesson">這次實驗真正留下的東西</h2>
+<p>Porta 不再是我的日常工具，但實驗沒有白做。從連線協定、Agent 工作流程、遠端執行到安全邊界，我更清楚一個遠端開發環境有哪些不可省略的能力；也更清楚為什麼某些看似方便的捷徑，最後會把人帶回手動操作。</p>
+<p>這個經驗後來也幫助我區分兩種不同需求：一種是「如何讓 Agent 使用某個特定 IDE」，另一種是「如何讓 ChatGPT 在授權下操作整台電腦」。它們可能共享部分工具，但不該被混成同一個系統。</p>
+<blockquote><p>寫得出來是一種能力。知道什麼時候不該再寫下去，是另一種。</p></blockquote>
+<div class="lab-article-related"><strong>CONTINUE READING / 繼續閱讀</strong><a href="/lab/">← 返回所有技術實驗</a><a href="/lab/memory/">AI 明明有長期記憶，為什麼還是忘記？ →</a></div><p class="lab-article-footer">研究紀錄依據過往實作、討論及既有驗證結果整理。本文側重技術決策與個人觀點，不提供私人系統端點、憑證或內部設定；歷史版本、配置與效能數據僅代表當時的環境。</p></article><aside class="lab-article-toc" aria-label="文章目錄"><strong>CONTENTS / 本篇目錄</strong><a href="#origin">最初想解決的問題 ↗</a><a href="#porta">從可用到好用 ↗</a><a href="#roadblocks">卡住的不是只有程式碼 ↗</a><a href="#turn">官方功能改變了判斷 ↗</a><a href="#decision">為什麼選擇放棄 ↗</a><a href="#lesson">真正帶走的能力 ↗</a></aside></div></main><footer class="footer"><div class="container footer-inner"><div><strong>計畫之外<span class="period">.</span></strong><p>UNPLANNED NOTES · 設計、研究與工程之間</p></div><div class="footer-right"><a href="/lab/">技術實驗室 ↗</a><a href="/">返回首頁 ↗</a><span>© 2026 計畫之外</span></div></div></footer></body></html>

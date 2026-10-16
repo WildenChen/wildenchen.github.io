@@ -32,7 +32,7 @@
       <div class="editorial-meta"><span>技術選型</span><span>實作驗證</span><span>UX 與維護成本</span><span>成功、轉向與放棄</span></div>
     </div></section>
     <div class="container editorial-container">
-      <p class="editorial-intro">這裡不是安裝教學清單，也不逐日記錄故障。每份卷宗挑一個核心問題：最初打算解決什麼、嘗試過哪些方向、什麼證據改變了判斷，以及現在留下了什麼。以下先收錄公開版的研究輪廓，詳細的技術紀錄將再逐篇整理。</p>
+      <p class="editorial-intro">這裡不是安裝教學清單，也不是故障流水帳。每份卷宗從一個真實遇過的問題出發，重建當時的技術限制、嘗試過的路線、關鍵轉折與最後的選擇。五篇長文已整理完成，點進去就能讀到完整的研究脈絡。</p>
       <div class="editorial-list">
         <article class="editorial-case" id="porta">
           <div class="case-side"><span class="case-id">001</span><span class="case-domain">REMOTE AGENTS<br>ANTIGRAVITY · PORTA</span><span class="case-status">研究結果 / 轉向官方方案</span></div>
@@ -41,6 +41,7 @@
             <p class="case-question">如果官方已經解決原本的使用障礙，為什麼還要繼續維護自己改過的遠端工具？</p>
             <p>起初是想從遠端使用 Antigravity，於是研究 Porta，並針對實際使用中的問題持續調整。隨著官方提供更合用的遠端能力，繼續維護改造版本的理由逐漸消失。</p>
             <p><strong>這個案例要呈現的不是「失敗」，而是技術選型的退出條件。</strong>遠端控制、Agent 操作、相容性和維護成本都得考慮，但最後讓方案去留分明的，是使用起來究竟順不順手。</p>
+          <a class="lab-index-upgrade" href="/lab/porta/">閱讀 Porta／Antigravity 完整研究 <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="editorial-case" id="memory">
@@ -50,6 +51,7 @@
             <p class="case-question">記錄被存下來，和代理真的能在下一次互動中正確使用它，是同一件事嗎？</p>
             <p>OpenClaw 語婕的記憶設計，逐步牽涉人格設定、長期記憶、情緒與狀態資料、Dreaming 和排程維護。隨著工具與角色分工調整，問題早已不只是「再多存一個檔案」。</p>
             <p>值得研究的是如何選擇要記住的資訊、讓不同記憶來源各司其職，以及如何減少歷史上下文、重複紀錄和錯誤回憶造成的干擾。</p>
+          <a class="lab-index-upgrade" href="/lab/memory/">閱讀 OpenClaw 記憶完整研究 <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="editorial-case" id="qwen">
@@ -59,6 +61,7 @@
             <p class="case-question">模型品質、參考影像一致性、生成時間和記憶體限制，究竟該先保住哪一項？</p>
             <p>在 Mac mini M2 Pro 16GB 上測試 Qwen／MLX 影像流程時，量化、推論步數、統一記憶體、swap、生成時間及參考影像穩定性，都需要用實際結果而不是漂亮的規格表比較。</p>
             <p>其中也包含採納 AI 建議後才發現更耗資源、效果更差的路線。<strong>好建議必須通過目標設備的實測。</strong>這篇將以可核對的數據、取捨與失敗原因為核心，而非貼幾張成功生成的照片。</p>
+          <a class="lab-index-upgrade" href="/lab/qwen/">閱讀 16GB Mac mini／Qwen 完整研究 <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="editorial-case" id="knowledge">
@@ -68,6 +71,7 @@
             <p class="case-question">一套人用起來方便的筆記同步方式，能不能同時成為可靠的 AI 知識來源？</p>
             <p>從 Obsidian／iCloud 到 Git 版本控制、手機雙向同步，再到規劃更一致的知識入口，變化不只是搬家。衝突處理、資料主來源、工具互通，以及人與代理能否讀寫同一份知識，都逐漸成了必要條件。</p>
             <p>這是資料治理和使用者體驗一起決定架構的案例：選型標準不是服務數量最少，而是整體流程是否更可靠、好理解、好維護。</p>
+          <a class="lab-index-upgrade" href="/lab/knowledge/">閱讀知識庫架構完整研究 <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="editorial-case" id="remote">
@@ -77,6 +81,7 @@
             <p class="case-question">討論結束後，為什麼還需要一個人把整套建議重新做一次？</p>
             <p>從「ChatGPT 幫忙思考、人在電腦執行」，逐漸研究 MCP、遠端執行、雙服務連線與授權機制。這些改造不是為了遠端控制本身，而是希望討論、驗證、執行與回報能形成更完整的工作流程。</p>
             <p>這類整合同時涉及權限管理、指令執行風險、可觀察性與可靠性。能自動完成事情很重要，但不值得為此犧牲系統控制權。</p>
+          <a class="lab-index-upgrade" href="/lab/remote/">閱讀 ChatGPT 遠端控制完整研究 <span aria-hidden="true">↗</span></a>
           </div>
         </article>
       </div>

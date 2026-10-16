@@ -1,0 +1,44 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#19373b"><meta name="description" content="從討論技術到在 Mac mini 直接執行：ChatGPT Remote Desktop Commander、自架 Remote MCP、官方與自架雙啟動、Cloudflare 認證和安全驗證的演變。"><meta property="og:type" content="article"><meta property="og:title" content="為什麼想讓 ChatGPT 直接操作電腦？｜計畫之外"><meta property="og:description" content="從討論技術到在 Mac mini 直接執行：ChatGPT Remote Desktop Commander、自架 Remote MCP、官方與自架雙啟動、Cloudflare 認證和安全驗證的演變。"><meta property="og:url" content="https://apps-dev.tech/lab/remote/"><link rel="canonical" href="https://apps-dev.tech/lab/remote/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/lab-article.css"><title>為什麼想讓 ChatGPT 直接操作電腦？｜技術實驗室｜計畫之外</title></head><body class="lab-article-page"><a class="skip-link" href="#article">跳至文章內容</a><header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="計畫之外，返回首頁"><span class="brand-symbol" aria-hidden="true">外<span>.</span></span><span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span></a><nav class="site-nav" aria-label="主要導覽"><a href="/#lab">技術實驗室</a><a href="/#design">設計與創作</a><a href="/#research">研究與思考</a><a href="/#books">著作與開源</a><a href="/about/">關於作者</a></nav></div></header><main id="main"><section class="lab-article-cover"><div class="container"><a class="lab-article-back" href="/lab/">← 返回技術實驗室</a><p class="lab-article-kicker">ENGINEERING LAB / CASE 005 / MCP / REMOTE COMPUTING</p><h1>為什麼想讓 ChatGPT 直接操作電腦？</h1><p class="lab-subtitle">我最討厭的不是自己操作電腦，而是討論了半天，最後又得從頭把結論翻譯成一連串指令。</p><div class="lab-article-tags"><span>ChatGPT</span><span>Desktop Commander</span><span>MCP</span><span>PM2</span><span>Cloudflare</span><span>Remote Agents</span></div></div></section><div class="container lab-article-layout"><article class="lab-article-body" id="article">
+<p class="intro">以前我跟 ChatGPT 討論技術，往往能很快把架構想清楚：要改哪個設定、哪個服務不必留、應該怎麼測試。接下來的工作卻還是得我自己打開終端機、找檔案、貼指令、檢查結果。如果修改途中出了新問題，又要把畫面和 Log 帶回對話裡，重新解釋一次。</p>
+<p>我開始思考：既然 ChatGPT 已經參與規劃，為什麼不能在我授權的環境下直接檢查、修改、測試、回報？這個想法不是為了讓 AI 替我點滑鼠，而是希望減少人與 AI 之間反覆搬運資訊的成本。</p>
+
+<h2 id="why">討論完之後，真正麻煩的往往才剛開始</h2>
+<p>我在不同設備上有開發工具，也有 Linux 服務和日常常駐的代理系統。每次要修改時，ChatGPT 能提出完整方案，卻不一定知道當前檔案到底長什麼樣、服務真正跑在哪裡、剛才的調整有沒有成功。</p>
+<p>從工程角度看，建議和執行中間缺少一個回饋迴路。比較理想的工作方式應該是：先看現況，再提出改法；取得授權後實際修改，執行檢查，最後回報具體證據。如果驗證沒過，就基於同一份執行結果繼續修，而不是依靠我口頭轉述。</p>
+<blockquote><p>如果 AI 已經知道下一步要做什麼，為什麼還需要我擔任它的人工鍵盤？</p></blockquote>
+<p>這也是我特別在意手機端操作的原因。不是所有事情都得靠一台正在我面前的桌面電腦才能繼續。</p>
+
+<h2 id="first">先用現成 Remote Commander，理解哪些能力真的需要</h2>
+<p>我先用既有的 Remote Desktop Commander 等工具，讓 ChatGPT 可以讀取檔案、查看狀態、呼叫遠端命令。這類工具和純聊天插件的差別，在於它能碰到真實執行環境。對設計與除錯來說，這是很大的變化。</p>
+<p>但實際用起來，也開始碰到新的限制：工具呼叫次數、不同裝置間的連線管理、認證、授權範圍，以及當官方服務暫時不方便使用時，工作會不會整個中斷。</p>
+<p>我希望系統更接近自己能掌握的基礎設施，而不是完全仰賴單一外部入口。於是研究在 Mac mini 上保持遠端服務常駐，透過 MCP 和可管理的網路入口，讓 ChatGPT 能聯繫授權設備。</p>
+
+<h2 id="selfhost">為什麼要自己架？因為使用方式已經成為日常流程</h2>
+<p>起初考慮的是很薄的橋接層：保留本機已經能執行檔案與終端機操作的部分，另外提供可以從外部連線的 MCP 入口。這比從零重做整套遠端桌面簡單，也較容易確認既有工具功能沒有被自己改壞。</p>
+<p>後來需求逐漸變得具體。遠端服務必須辨識裝置、維護會話、處理連線恢復，最好還有狀態頁可以知道目前哪些機器在線上。Mac mini 的 PM2 常駐程序因此成為重要的一環：主機開著時，工具不該每次手動啟動。</p>
+<p>我也希望能夠在 ChatGPT、不同遠端方案和自己的自架服務之間保留選擇空間。如果一次認證故障就要重新佈署所有設備，那就失去了便利性。</p>
+
+<h2 id="profiles">從單一程序切換設定，到官方與自架同時運作</h2>
+<p>早期我比較喜歡「像 OpenCodex 一樣切換」的設計：只執行一份遠端程序，根據需要切換官方或自架 Server。概念上很節省資源，也容易理解。但實際操作時，這意味著共用的設備設定、認證資料和啟動腳本都要頻繁切換。</p>
+<p>後來我反而提出一個不同要求：<strong>官方和自架都要能同時跑，而且各自的 Token 與裝置資料不能互相覆蓋。</strong>因為等到真的需要備援時，還得先停掉一套、替換設定、啟動另一套，不一定比多留一個常駐服務更划算。</p>
+<p>後續的方案把官方與自架的裝置設定分離，各自使用獨立狀態與憑證，並透過啟動腳本和 PM2 管理。這並不是只看記憶體最少的方案；而是考慮到 16GB 的 Mac mini 仍然要日常工作時，額外少量常駐負擔是否值得換取免切換、免誤覆蓋和更好的可用性。</p>
+<div class="lab-article-fact"><span class="fact-title">這次調整想保護的三種邊界</span><table><tr><th>服務邊界</th><td>官方與自架入口可以平行存在，不需要共用不可預期的執行狀態。</td></tr><tr><th>憑證邊界</th><td>每個入口、裝置與權限有自己的認證資料，避免切換時互相覆蓋。</td></tr><tr><th>任務邊界</th><td>ChatGPT 看見的工具能力，應該與實際能執行的動作保持一致。</td></tr></table></div>
+<p>從這段演變可以看出我對效能的理解也變了：不是所有東西都要擠到一個程序裡。對會長期使用的服務，操作摩擦和誤操作風險本來就是系統成本。</p>
+
+<h2 id="cloudflare">認證、連線可靠性，比換一個網址還複雜</h2>
+<p>後來又做了一次重要整理：把自架 Remote Desktop Services 轉向自己管理的網域與 Cloudflare 認證，逐步取代早期較零散的登入和反向代理安排。</p>
+<p>這次不只是在 DNS 上加一筆紀錄。ChatGPT 的連接器需要能完成登入授權；遠端裝置又有自己的註冊、Token 更新與連線生命週期。把管理介面、MCP 存取和裝置長連線視為同一種認證，容易在遷移時出問題。</p>
+<p>我因此更傾向把人和 Agent 的 OAuth／存取控制，與裝置端的身分和長連線憑證分開看。遷移時也保留舊的可用入口，等新方案實際完成驗證後才切換，避免一次性替換導致遠端設備全部斷線。</p>
+<p>外面看起來也許只是多了一個漂亮的網址；裡面其實涉及零信任存取、會話管理、認證相容、狀態遷移和故障回復。這些細節決定了日常能不能安心使用。</p>
+
+<h2 id="boundary">這跟控制 Antigravity，為什麼不是同一件事？</h2>
+<p>我曾經也研究 Porta 與 Antigravity 的遠端操作，那是另一種遠端問題。Porta 想要的是深入特定 IDE 的 Agent 工作流程；ChatGPT Remote Desktop 走的是授權後操作一台電腦與其檔案、命令、服務。</p>
+<p>兩者有交集，但不能混為一談。一般電腦控制能協助讀取原始碼、執行 Git、檢查 PM2 與系統狀態，卻不代表必然掌握 IDE 專屬的 Approval、差異檢視和代理會話。相反地，一個專屬 IDE 遠端介面也不一定能管理整台電腦。</p>
+<p>這就是為什麼我後來願意放棄 Porta 的日常遠端 UI，卻仍持續投入 Desktop Commander 與自架 Remote MCP。前者的核心需求已有更適合的工具，後者解決的工作流仍然成立。</p>
+
+<h2 id="lesson">驗證比「AI 說修好了」更重要</h2>
+<p>能讓 AI 執行遠端命令，是一件需要謹慎處理的事。除了身分驗證和最小必要權限，還要保留每次修改的可觀察性：到底碰了哪些檔案、服務現在是什麼狀態、測試結果是什麼、Git 有沒有真的推上去？</p>
+<p>我越來越希望每次任務都包含檢查，而不是只在最後收到一句「已完成」。例如修改網站時，先讀目前的 Git 狀態、只加入預定公開檔案、驗證頁面與連結，Push 後再確認網站真的更新。這種流程不只減少錯誤，也能讓人放心把更多例行操作交給工具。</p>
+<p>當然，能控制電腦不代表可以不受限制地控制任何東西。權限、隱私、隔離和可回復性，都應該是設計的一部分，而不是等出事才想起來。</p>
+<blockquote><p>我需要的不是一個很會說「沒問題」的助手，而是一個真的做過、查過，還能告訴我哪裡可能有問題的工作流程。</p></blockquote>
+<div class="lab-article-related"><strong>CONTINUE READING / 繼續閱讀</strong><a href="/lab/">← 返回所有技術實驗</a><a href="/lab/porta/">再看另一種遠端方案：Porta 與 Antigravity →</a></div><p class="lab-article-footer">研究紀錄依據過往實作、討論及既有驗證結果整理。本文側重技術決策與個人觀點，不提供私人系統端點、憑證或內部設定；歷史版本、配置與效能數據僅代表當時的環境。</p></article><aside class="lab-article-toc" aria-label="文章目錄"><strong>CONTENTS / 本篇目錄</strong><a href="#why">為什麼想讓聊天真的變成執行 ↗</a><a href="#first">從現成 Remote Commander 開始 ↗</a><a href="#selfhost">為什麼要自己架一套 ↗</a><a href="#profiles">一次服務切換，到兩套並存 ↗</a><a href="#cloudflare">認證、可用性與遷移 ↗</a><a href="#boundary">與 Antigravity 遠端的差別 ↗</a><a href="#lesson">驗證比宣稱完成更重要 ↗</a></aside></div></main><footer class="footer"><div class="container footer-inner"><div><strong>計畫之外<span class="period">.</span></strong><p>UNPLANNED NOTES · 設計、研究與工程之間</p></div><div class="footer-right"><a href="/lab/">技術實驗室 ↗</a><a href="/">返回首頁 ↗</a><span>© 2026 計畫之外</span></div></div></footer></body></html>

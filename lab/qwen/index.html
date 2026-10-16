@@ -1,0 +1,42 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#19373b"><meta name="description" content="Mac mini M2 Pro 16GB 上部署 Qwen-Image-2.1 MLX Q4：模型量化、鎖臉、推論效能、swap、非同步工作與 AI 建議誤判的完整實驗紀錄。"><meta property="og:type" content="article"><meta property="og:title" content="只有 16GB 記憶體，還想讓 AI 畫得像同一個人｜計畫之外"><meta property="og:description" content="Mac mini M2 Pro 16GB 上部署 Qwen-Image-2.1 MLX Q4：模型量化、鎖臉、推論效能、swap、非同步工作與 AI 建議誤判的完整實驗紀錄。"><meta property="og:url" content="https://apps-dev.tech/lab/qwen/"><link rel="canonical" href="https://apps-dev.tech/lab/qwen/"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/site-shell.css"><link rel="stylesheet" href="/lab-article.css"><title>只有 16GB 記憶體，還想讓 AI 畫得像同一個人｜技術實驗室｜計畫之外</title></head><body class="lab-article-page"><a class="skip-link" href="#article">跳至文章內容</a><header class="site-header"><div class="container header-inner"><a class="brand" href="/" aria-label="計畫之外，返回首頁"><span class="brand-symbol" aria-hidden="true">外<span>.</span></span><span class="brand-name">計畫之外<small>UNPLANNED NOTES</small></span></a><nav class="site-nav" aria-label="主要導覽"><a href="/#lab">技術實驗室</a><a href="/#design">設計與創作</a><a href="/#research">研究與思考</a><a href="/#books">著作與開源</a><a href="/about/">關於作者</a></nav></div></header><main id="main"><section class="lab-article-cover"><div class="container"><a class="lab-article-back" href="/lab/">← 返回技術實驗室</a><p class="lab-article-kicker">ENGINEERING LAB / CASE 003 / LOCAL IMAGE INFERENCE</p><h1>只有 16GB 記憶體，還想讓 AI 畫得像同一個人</h1><p class="lab-subtitle">不是挑一個最新模型就會變快，也不是裝得進記憶體就代表能投入日常使用。</p><div class="lab-article-tags"><span>Mac mini M2 Pro</span><span>16GB</span><span>Qwen-Image-2.1</span><span>MLX</span><span>FLUX</span><span>Async Jobs</span></div></div></section><div class="container lab-article-layout"><article class="lab-article-body" id="article">
+<p class="intro">這個實驗的出發點其實很不合理：我手邊是一台 Mac mini M2 Pro，只有 16GB 統一記憶體，平常還要跑代理、排程和各種服務；我卻希望它能在本機生成固定人物的自拍，而且不是每次換一張臉。</p>
+<p>如果只要求偶爾畫出一張漂亮圖片，雲端服務選項很多。我更在意的是能不能掌握資料、避免把私人角色影像交給外部平台、長期控制成本，以及最重要的一點：<strong>同一個角色，下次生成時，還能像同一個人。</strong></p>
+
+<h2 id="need">我要的不是「能出圖」，而是角色可以持續使用</h2>
+<p>語婕、筱蜜和若晴的角色形象，不能每次都因為不同模型的審美習慣變得面目全非。所以研究焦點從一開始就不只是文字生成圖片，而是有參考影像的編輯、身份特徵保留、眼神自然、畫面穩定，以及輸入輸出能被不同 Agent 一致呼叫。</p>
+<p>為什麼要用本機？首先是隱私與掌控度，其次是可預測性。如果角色自拍每次都必須跨越不同雲端產品的規則、額度和 API 變動，整個系統很難長期穩定。這不等於本機沒有成本；本機的成本換成了等待時間、記憶體壓力、維護和電力。</p>
+<p>真正的工程題目因此變成：在這台電腦不換機的前提下，怎麼找到品質、速度與可靠性之間最能接受的平衡？</p>
+
+<h2 id="limits">16GB 統一記憶體不是單純的模型檔案大小</h2>
+<p>Apple Silicon 的記憶體由 CPU、GPU 和系統共享。模型檔案經過量化後看起來變小，不表示執行過程只會占用那麼多記憶體。還有中間張量、權重載入、快取、解碼、其他常駐程序，以及系統可能動用的 swap。</p>
+<p>這也是為什麼我後來特別在意 MLX 的量測，而不是只看模型頁面標示幾 GB。曾經有過模型可以啟動，實際執行卻擠壓整台電腦資源的經驗。對 16GB 的主力機而言，這種「勉強跑得動」不能算完成部署。</p>
+<p>因此研究走向 Q4 量化、分段／延遲載入的低記憶體流程，限制輸出尺寸、步數和推論併發。這些選擇有各自的代價：降低步數可能犧牲細節或人物一致性，關閉快取可能增加等待，但它們換來的是系統能在現實環境下運作。</p>
+
+<h2 id="missteps">ChatGPT 的建議，也可能比自己測過的方案更差</h2>
+<p>中途最深刻的經驗之一，是過去曾依照 AI 的技術建議嘗試不同部署路線。方案描述有時非常合理：換一種實作、增加快取、使用看起來更有效率的流程，理論上都可能改善效能。但真正放到這台只有 16GB 記憶體的 Mac 上，結果卻未必如此。</p>
+<p>有些建議在不考慮設備限制時說得通，到了實機才發現記憶體負擔更大、執行時間更長，或根本不符合鎖臉需求。我曾因為太相信這類建議而多走了冤枉路。這也是我後來越來越堅持，任何模型與推論路線都必須有同一台機器上的比較數據。</p>
+<p>這裡需要區分兩件事：<strong>AI 的建議是待驗證的假設，不是已經量測過的結論；而單次成功出圖，也不能證明新方案比較好。</strong>對於尚未保留完整 A／B 紀錄的早期嘗試，我不會只憑印象寫出某個模型「一定慢幾倍」的數字。</p>
+<blockquote><p>那時候我想節省記憶體，結果最先被消耗掉的，是用來相信建議的時間。</p></blockquote>
+
+<h2 id="numbers">真正改變決策的是實測，而不是宣傳速度</h2>
+<p>經過反覆調整，我保留了 Qwen-Image-2.1 的 MLX Q4 低記憶體路線作為正式品質優先的流程。當時一組具有代表性的測試條件是 512×640、16 steps、guidance 1.1，固定參考圖與參數，以便比較。</p>
+<div class="lab-article-fact"><span class="fact-title">2026 年 9–10 月代表性測試紀錄（單次環境數據）</span><table><tr><th>設備</th><td>Mac mini M2 Pro，16GB 統一記憶體</td></tr><tr><th>品質優先</th><td>Qwen-Image-2.1 / MLX / Q4，512×640，16 steps，guidance 1.1</td></tr><tr><th>生成時間</th><td>代表性 16-step 測試約 658 秒；不同版本／實驗曾約 639–649 秒</td></tr><tr><th>MLX 指標</th><td>紀錄的 MLX peak 約 6.21GB；這不是整台電腦的總記憶體使用量</td></tr><tr><th>系統交換</th><td>一次測試的 swap 觀察約 5.2GB → 7.2GB → 5.9GB</td></tr><tr><th>長步數</th><td>曾測得 20-step 約 812 秒，並非免費增加品質</td></tr><tr><th>快速草稿</th><td>FLUX.2 Klein 4B Q4 等快速路線，部分測試約 150 秒級，但不能直接視為同等鎖臉品質</td></tr></table></div>
+<p>這些數字在展示頁面上看起來都不算漂亮：生成一張圖片可能要等十幾分鐘。但它們回答了另一個更有用的問題：這個流程在現有硬體上是否能穩定完成、是否保留身份、是否可控？</p>
+<p>我也試過不同步數、快速草稿和較激進的快取路線。比較時必須注意模型、參考影像與推論路徑是否一致，不能把不同工作負載直接拿來宣稱「快了幾倍」。對人物自拍而言，單純追求每秒生成量並不符合我真正的目標。</p>
+
+<h2 id="architecture">一個要等十分鐘的模型，不能用十秒鐘的介面思考</h2>
+<p>另一個轉折不是模型本身，而是如何把它變成 OpenClaw、OpenMinis 等角色能穩定使用的服務。長時間的圖片工作，如果直接用一般同步呼叫等待結果，往往會碰到用戶端超時。曾經出現後端已經完成出圖，Agent 卻沒有把圖片正確送回來的情況。</p>
+<p>因此逐步改成非同步工作模式：提交後回傳工作識別、後端排隊與生成、用戶端查詢狀態，再取得結果。因為記憶體吃緊，推論以單工序列化為主，避免多個角色同時要求自拍，讓系統在還沒出圖前就先耗盡資源。</p>
+<p>我也把失敗視為系統功能的一部分。與其等待超時後只得到一句「不知道為什麼失敗」，不如保留明確的錯誤資訊與工作狀態。圖片格式、時間限制和結果檔案都需要統一：例如早期會話還送出舊的 JPG 請求，後端卻只接受 PNG，最終增加格式正規化與診斷記錄，避免同樣的問題一直重演。</p>
+<p>這裡還有一條特別在意的原則：本機生成失敗時，不應偷偷轉送私人圖片到外部雲端服務。正式流程採取明確失敗、不自動雲端備援的策略。這會減少「看起來成功」的機會，卻能讓使用者真正掌握資料流向。</p>
+
+<h2 id="identity">快一點，和還是不是同一個人</h2>
+<p>後來形成品質優先、快速草稿，以及嘗試折衷的不同路線。它們沒有被當成互相取代的版本：正式角色圖片仍偏向有參考影像的 Qwen 編輯；快速模型更適合先確認構圖與想法，但身份一致性不足時，不能因為速度快就取代正式結果。</p>
+<p>人物是否像同一個人，還涉及眼睛對焦、臉部比例、髮型和整體形象穩定性。單看模型是否成功輸出一張 PNG 沒有意義；生成完畢只是第一個驗收條件。</p>
+<p>從這裡我反而把 AI 圖像系統看得更像一個需要品質保證的軟體服務：有輸入規格、版本、參考資料、測試情境、效能數據、失敗處理，以及明確的品質底線。</p>
+
+<h2 id="conclusion">一台 16GB 電腦教我的，不只是怎麼省記憶體</h2>
+<p>若硬體資源無限，多數效能問題都可以靠加大設備繞過。但正因為硬體有限，我才更需要搞懂每項架構選擇的代價。量化、載入方式、cache、步數、併發、排程和傳輸格式，看似互不相干，最後卻一起決定使用體驗。</p>
+<p>這次的成果不是「16GB 打敗所有高階顯示卡」，也不是本機推論一定比雲端好；而是我在有限條件下，建立了一套知道自己能做什麼、做不到什麼，而且出錯時不會擅自改走另一條路的生成流程。</p>
+<blockquote><p>設備有限，不代表想法也要縮小；只是每一個選擇，都得拿數據負責。</p></blockquote>
+<div class="lab-article-related"><strong>CONTINUE READING / 繼續閱讀</strong><a href="/lab/">← 返回所有技術實驗</a><a href="/lab/knowledge/">我的知識庫，為什麼逐漸離開 iCloud？ →</a></div><p class="lab-article-footer">研究紀錄依據過往實作、討論及既有驗證結果整理。本文側重技術決策與個人觀點，不提供私人系統端點、憑證或內部設定；歷史版本、配置與效能數據僅代表當時的環境。</p></article><aside class="lab-article-toc" aria-label="文章目錄"><strong>CONTENTS / 本篇目錄</strong><a href="#need">我真正想要的結果 ↗</a><a href="#limits">16GB 的硬體邊界 ↗</a><a href="#missteps">採納建議也可能走錯路 ↗</a><a href="#numbers">從實測數據重新選擇 ↗</a><a href="#architecture">從慢模型變成可用服務 ↗</a><a href="#identity">快與人物一致性的取捨 ↗</a><a href="#conclusion">一台 16GB 電腦給我的教訓 ↗</a></aside></div></main><footer class="footer"><div class="container footer-inner"><div><strong>計畫之外<span class="period">.</span></strong><p>UNPLANNED NOTES · 設計、研究與工程之間</p></div><div class="footer-right"><a href="/lab/">技術實驗室 ↗</a><a href="/">返回首頁 ↗</a><span>© 2026 計畫之外</span></div></div></footer></body></html>
